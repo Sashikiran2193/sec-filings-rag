@@ -127,17 +127,18 @@ def chunk_text(text: str) -> list[str]:
     return ["".join(u for u, _ in c).strip() for c in chunks]
 
 
-def build_chunks() -> list[dict]:
+def chunk_filing(ticker: str, year: str) -> list[dict]:
+    """Chunk every section of one filing in data/clean/<ticker>/<year>/."""
     records = []
-    for path in sorted(CLEAN_DIR.glob("*/*/item_*.txt")):
-        ticker, year = path.parent.parent.name, path.parent.name
+    company = company_name(ticker)
+    for path in sorted((CLEAN_DIR / ticker / year).glob("item_*.txt")):
         item = path.stem.removeprefix("item_")
         text = path.read_text(encoding="utf-8")
         for i, chunk in enumerate(chunk_text(text), start=1):
             records.append({
                 "id": f"{ticker}-{year}-{item.upper()}-{i:03d}",
                 "ticker": ticker,
-                "company": company_name(ticker),
+                "company": company,
                 "year": year,
                 "section": f"Item {item.upper()}",
                 "section_title": SECTION_TITLES[item],
@@ -146,6 +147,23 @@ def build_chunks() -> list[dict]:
                 "text": chunk,
             })
     return records
+
+
+def build_chunks() -> list[dict]:
+    filings = sorted({(p.parent.name, p.name) for p in CLEAN_DIR.glob("*/*") if p.is_dir()})
+    return [r for ticker, year in filings for r in chunk_filing(ticker, year)]
+
+
+def save_filing_chunks(ticker: str, year: str, records: list[dict]) -> None:
+    """Replace one filing's lines in chunks.jsonl, keeping every other filing's."""
+    kept = []
+    if OUT_FILE.exists():
+        with OUT_FILE.open(encoding="utf-8") as f:
+            kept = [l for l in f if not l.startswith(f'{{"id": "{ticker}-{year}-')]
+    OUT_FILE.parent.mkdir(parents=True, exist_ok=True)
+    with OUT_FILE.open("w", encoding="utf-8") as f:
+        f.writelines(kept)
+        f.writelines(json.dumps(r, ensure_ascii=False) + "\n" for r in records)
 
 
 def print_counts(records: list[dict]) -> None:

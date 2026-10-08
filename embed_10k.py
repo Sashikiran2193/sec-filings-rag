@@ -47,23 +47,26 @@ def embed_text(chunk: dict) -> str:
     return f"{header}\n{chunk['text']}"
 
 
-def check_lengths(texts: list[str]) -> None:
-    """Fail early if anything would be cut off by the model's input limit."""
+def check_lengths(texts: list[str]) -> int:
+    """Fail early if anything would be cut off by the model's input limit; return the longest."""
     lengths = [len(e.ids) for e in tokenizer().encode_batch(texts)]  # includes special tokens
     too_long = sum(n > MODEL_MAX_TOKENS for n in lengths)
-    print(f"Longest input: {max(lengths)} tokens (limit {MODEL_MAX_TOKENS})")
-    assert not too_long, f"{too_long} chunks exceed {MODEL_MAX_TOKENS} tokens; re-run chunk_10k.py"
+    if too_long:
+        raise ValueError(f"{too_long} chunks exceed {MODEL_MAX_TOKENS} tokens; re-run chunk_10k.py")
+    return max(lengths)
 
 
-def embed_all(model: TextEmbedding, texts: list[str]) -> list[list[float]]:
+def embed_all(model: TextEmbedding, texts: list[str], progress: bool = True) -> list[list[float]]:
     vectors = []
     start = time.time()
     for i in range(0, len(texts), BATCH_SIZE):
         batch = texts[i : i + BATCH_SIZE]
         vectors += [v.tolist() for v in model.embed(batch, batch_size=BATCH_SIZE)]
-        done = i + len(batch)
-        print(f"\rEmbedded {done}/{len(texts)} chunks ({time.time() - start:.0f}s)", end="")
-    print()
+        if progress:
+            done = i + len(batch)
+            print(f"\rEmbedded {done}/{len(texts)} chunks ({time.time() - start:.0f}s)", end="")
+    if progress:
+        print()
     return vectors
 
 
@@ -78,16 +81,24 @@ def get_collection(client: chromadb.ClientAPI, reset: bool = False):
     )
 
 
-def main() -> None:
-    chunks = load_chunks()
+def filing_filter(ticker: str, year: str) -> dict:
+    return {"$and": [{"ticker": ticker}, {"year": year}]}
+
+
+def is_loaded(collection, ticker: str, year: str) -> bool:
+    return bool(collection.get(where=filing_filter(ticker, year), limit=1)["ids"])
+
+
+def replace_filing(collection, model: TextEmbedding, ticker: str, year: str, chunks: list[dict]) -> None:
+    """Embed one filing's chunks and swap them in for any already stored."""
     texts = [embed_text(c) for c in chunks]
     check_lengths(texts)
-    model = TextEmbedding(EMBED_MODEL)
-    vectors = embed_all(model, texts)
-    assert len(vectors[0]) == EMBED_DIM, f"expected {EMBED_DIM} dims, got {len(vectors[0])}"
+    vectors = embed_all(model, texts, progress=False)
+    collection.delete(where=filing_filter(ticker, year))
+    store(collection, chunks, vectors)
 
-    client = chromadb.PersistentClient(path=str(CHROMA_DIR))
-    collection = get_collection(client, reset=True)
+
+def store(collection, chunks: list[dict], vectors: list[list[float]]) -> None:
     for i in range(0, len(chunks), BATCH_SIZE * 8):
         batch = chunks[i : i + BATCH_SIZE * 8]
         collection.add(
@@ -96,6 +107,18 @@ def main() -> None:
             documents=[c["text"] for c in batch],
             metadatas=[{k: v for k, v in c.items() if k not in ("id", "text")} for c in batch],
         )
+
+
+def main() -> None:
+    chunks = load_chunks()
+    texts = [embed_text(c) for c in chunks]
+    print(f"Longest input: {check_lengths(texts)} tokens (limit {MODEL_MAX_TOKENS})")
+    model = TextEmbedding(EMBED_MODEL)
+    vectors = embed_all(model, texts)
+    assert len(vectors[0]) == EMBED_DIM, f"expected {EMBED_DIM} dims, got {len(vectors[0])}"
+
+    collection = get_collection(chromadb.PersistentClient(path=str(CHROMA_DIR)), reset=True)
+    store(collection, chunks, vectors)
     print(f"Stored {collection.count()} chunks in {CHROMA_DIR}/ (collection '{COLLECTION}')")
 
 

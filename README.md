@@ -14,15 +14,40 @@ Retrieval over SEC 10-K filings: download, clean, chunk, embed and search.
 
 Tickers and years are listed in `tickers.json`.
 
+### One command
+
+`ingest.py` runs steps 1-4 for each filing:
+
 ```powershell
 pip install -r requirements.txt
-python fetch_10k.py
-python parse_10k.py
-python chunk_10k.py
-python embed_10k.py
-python search_10k.py                       # three test searches
-python search_10k.py "question" [TICKER]   # your own search
+python ingest.py --ticker TSLA --year 2025   # one filing
+python ingest.py --ticker TSLA               # every year in tickers.json
+python ingest.py                             # every ticker and year in tickers.json
+python ingest.py --force                     # rebuild filings already loaded
+python search_10k.py                         # three test searches
+python search_10k.py "question" [TICKER]     # your own search
 ```
+
+Re-runs are safe. A filing already in the vector store is skipped. With
+`--force`, its old chunks are deleted from Chroma and from `chunks.jsonl`
+before the new ones go in, so nothing is stored twice. Filings that don't
+exist yet (e.g. a 10-K not filed) are logged as missing and the run carries
+on. Each step and the chunk count per filing are logged to the screen and to
+`logs/ingest.log`. The command exits with code 1 if any filing failed.
+
+Any ticker works, not just those in `tickers.json`. For a new ticker, add it
+to `aliases` in `tickers.json` so searches that name the company filter to it
+automatically, and to `names` for a cleaner name than the SEC's.
+
+### Step by step
+
+The scripts also run on their own, over everything on disk:
+
+```powershell
+python fetch_10k.py; python parse_10k.py; python chunk_10k.py; python embed_10k.py
+```
+
+`embed_10k.py` rebuilds the whole vector store from `chunks.jsonl`.
 
 ## Embeddings
 
