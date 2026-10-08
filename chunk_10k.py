@@ -6,27 +6,34 @@ Reads data/clean/<ticker>/<year>/item_<n>.txt and writes data/chunks/chunks.json
 one JSON object per line:
   {"id": "TSLA-2025-1A-003", "ticker": "TSLA", "company": "Tesla, Inc.",
    "year": "2025", "section": "Item 1A", "section_title": "Risk Factors",
-   "chunk": 3, "tokens": 642, "text": "..."}
+   "chunk": 3, "tokens": 412, "text": "..."}
 
 Chunks are built from whole sentences (and whole table rows), so they never
-cut a sentence in half. Token counts are estimated at ~4 characters per token.
+cut a sentence in half. Tokens are counted with the embedding model's own
+tokenizer (BAAI/bge-small-en-v1.5), and chunks are kept under its 512-token
+input limit so nothing is cut off when they are embedded.
 """
 
 import json
 import re
 from collections import Counter
+from functools import cache
 from pathlib import Path
+
+from tokenizers import Tokenizer
 
 from fetch_10k import company_name
 
 CLEAN_DIR = Path("data/clean")
 OUT_FILE = Path("data/chunks/chunks.jsonl")
 
-TARGET_TOKENS = 650  # aim for 500-800
-MAX_TOKENS = 800
-OVERLAP_TOKENS = 80  # repeated from the end of the previous chunk
-MIN_TOKENS = 150  # a smaller last chunk is merged into the one before it
-CHARS_PER_TOKEN = 4
+TOKENIZER_MODEL = "BAAI/bge-small-en-v1.5"
+TARGET_TOKENS = 380  # aim for 300-480
+# Hard limit. The model reads 512 tokens: 2 special ones, up to ~30 for the
+# company/section header embed_10k.py adds, and the chunk itself.
+MAX_TOKENS = 480
+OVERLAP_TOKENS = 50  # repeated from the end of the previous chunk
+MIN_TOKENS = 100  # a smaller last chunk is merged into the one before it, if it fits
 
 SECTION_TITLES = {
     "1": "Business", "1a": "Risk Factors", "1b": "Unresolved Staff Comments",
@@ -50,58 +57,74 @@ SECTION_TITLES = {
 SENTENCE_END = re.compile(r"(?:(?<=[.!?])|(?<=[.!?][\"”)]))\s+(?=[A-Z0-9“\"(])")
 
 
+@cache
+def tokenizer() -> Tokenizer:
+    tok = Tokenizer.from_pretrained(TOKENIZER_MODEL)
+    tok.no_truncation()
+    return tok
+
+
 def count_tokens(text: str) -> int:
-    return max(1, len(text) // CHARS_PER_TOKEN)
+    return len(tokenizer().encode(text, add_special_tokens=False).ids)
 
 
-def split_units(text: str) -> list[str]:
-    """Break text into sentences; each line (paragraph or table row) ends with "\\n"."""
+def split_long(unit: str) -> list[str]:
+    """Cut a sentence longer than MAX_TOKENS into pieces at word boundaries."""
+    pieces = []
+    while count_tokens(unit) > MAX_TOKENS:
+        offsets = tokenizer().encode(unit, add_special_tokens=False).offsets
+        limit = offsets[TARGET_TOKENS][0]  # character position of token TARGET_TOKENS
+        cut = unit.rfind(" ", 0, limit)
+        cut = cut if cut > 0 else limit
+        pieces.append(unit[:cut] + " ")
+        unit = unit[cut:].lstrip()
+    return pieces + [unit]
+
+
+def split_units(text: str) -> list[tuple[str, int]]:
+    """Break text into (sentence, token count); each line ends with "\\n"."""
     units = []
     for line in text.splitlines():
         sentences = [line] if " | " in line else SENTENCE_END.split(line)
         units += [s + " " for s in sentences[:-1]] + [sentences[-1] + "\n"]
-    # A single sentence longer than a chunk is cut at word boundaries.
-    out = []
-    for unit in units:
-        while count_tokens(unit) > MAX_TOKENS:
-            cut = unit.rfind(" ", 0, TARGET_TOKENS * CHARS_PER_TOKEN)
-            cut = cut if cut > 0 else TARGET_TOKENS * CHARS_PER_TOKEN
-            out.append(unit[:cut] + " ")
-            unit = unit[cut:].lstrip()
-        out.append(unit)
-    return out
+    units = [piece for unit in units for piece in split_long(unit)]
+    counts = tokenizer().encode_batch(units, add_special_tokens=False)
+    return [(u, len(c.ids)) for u, c in zip(units, counts)]
 
 
-def overlap_tail(units: list[str]) -> list[str]:
+def overlap_tail(units: list[tuple[str, int]]) -> list[tuple[str, int]]:
     """The last few sentences of a chunk, up to OVERLAP_TOKENS, to repeat in the next."""
-    tail: list[str] = []
+    tail: list[tuple[str, int]] = []
     for unit in reversed(units):
-        if count_tokens("".join(tail) + unit) > OVERLAP_TOKENS:
+        if sum(n for _, n in tail) + unit[1] > OVERLAP_TOKENS:
             break
         tail.insert(0, unit)
     return tail
 
 
 def chunk_text(text: str) -> list[str]:
-    chunks: list[list[str]] = []
-    current: list[str] = []
+    chunks: list[list[tuple[str, int]]] = []
+    current: list[tuple[str, int]] = []
+    size = 0
     repeated = 0  # how many units at the start of `current` are overlap
     for unit in split_units(text):
-        size = count_tokens("".join(current))
-        if current and (size >= TARGET_TOKENS or size + count_tokens(unit) > MAX_TOKENS):
+        if current and (size >= TARGET_TOKENS or size + unit[1] > MAX_TOKENS):
             chunks.append(current)
             current = overlap_tail(current)
+            size = sum(n for _, n in current)
+            if size + unit[1] > MAX_TOKENS:  # no room for overlap before a long sentence
+                current, size = [], 0
             repeated = len(current)
         current.append(unit)
+        size += unit[1]
 
     new_part = current[repeated:]
-    if chunks and count_tokens("".join(new_part)) < MIN_TOKENS and count_tokens(
-        "".join(chunks[-1] + new_part)
-    ) <= MAX_TOKENS + MIN_TOKENS:
+    new_size = sum(n for _, n in new_part)
+    if chunks and new_size < MIN_TOKENS and sum(n for _, n in chunks[-1]) + new_size <= MAX_TOKENS:
         chunks[-1] += new_part  # fold a short tail into the previous chunk
     elif new_part:
         chunks.append(current)
-    return ["".join(c).strip() for c in chunks]
+    return ["".join(u for u, _ in c).strip() for c in chunks]
 
 
 def build_chunks() -> list[dict]:

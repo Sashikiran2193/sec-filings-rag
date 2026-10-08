@@ -13,5 +13,16 @@
     "AMZN": "Amazon.com, Inc.",
     "GOOGL": "Alphabet Inc.",
     "SNOW": "Snowflake Inc."
+  },
+  "aliases": {
+    "F": ["Ford"],
+    "GM": ["General Motors", "GM"],
+    "TSLA": ["Tesla", "TSLA"],
+    "RIVN": ["Rivian", "RIVN"],
+    "MSFT": ["Microsoft", "MSFT"],
+    "AMZN": ["Amazon", "AMZN", "AWS"],
+    "GOOGL": ["Alphabet", "Google", "GOOGL", "GOOG"],
+    "SNOW": ["Snowflake"],
+    "AAPL": ["Apple", "AAPL"]
   }
 }
