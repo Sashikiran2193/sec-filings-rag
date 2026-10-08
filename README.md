@@ -12,6 +12,12 @@ Retrieval over SEC 10-K filings: download, clean, chunk, embed and search.
 | 4. Embed and load the vector store | `embed_10k.py` | `chroma/` (collection `sec_10k`) |
 | 5. Search | `search_10k.py` | prints top 5 chunks; `retrieve(question, k)` for code |
 | 6. Evaluate retrieval | `eval_retrieval.py` | `eval/retrieval_results.md` (reviewed in `eval/retrieval_review.md`) |
+| 7. Answer with citations | `answer_10k.py` | answer citing company, fiscal year and section; `answer(question)` for code |
+
+Answers use Claude (`claude-opus-5-5`) and need `ANTHROPIC_API_KEY` in `.env`.
+The model sees only the retrieved chunks, must cite one for every claim, and
+replies "Not found in the filings." when they don't cover the question (see
+`eval/answer_check.md`).
 
 Tickers and years are listed in `tickers.json`.
 
