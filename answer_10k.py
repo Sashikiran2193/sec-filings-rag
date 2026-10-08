@@ -1,6 +1,8 @@
 """Answer questions from the 10-K filings, citing the sections used.
 
-Usage: python answer_10k.py "question"
+Usage:
+  python answer_10k.py "question"
+  python answer_10k.py "question" --ticker F --ticker GM --year 2025 --section "Item 1A"
 
 In code:
   from answer_10k import answer
@@ -9,6 +11,7 @@ In code:
   result["found"]    # False when the filings don't cover the question
   result["cited"]    # chunks the answer cites
   result["retrieved"]  # every chunk the model was given
+  result["filters"]  # tickers / years / sections searched (given, or detected in the question)
 
 The model sees only the retrieved chunks, numbered S1, S2, ..., and cites those
 numbers; the code swaps each number for the chunk's company, year and section,
@@ -17,13 +20,13 @@ so every citation points at a chunk that was actually supplied.
 Needs ANTHROPIC_API_KEY in the environment or in .env.
 """
 
+import argparse
 import re
-import sys
 
 import anthropic
 from dotenv import load_dotenv
 
-from search_10k import retrieve
+from search_10k import add_filter_args, describe, filter_kwargs, filters_for, retrieve
 
 load_dotenv()
 
@@ -91,8 +94,17 @@ def expand_citations(text: str, chunks: list[dict]) -> tuple[str, list[dict]]:
     return CITATION.sub(replace, text), [cited[n] for n in sorted(cited)]
 
 
-def answer(question: str, k: int = K) -> dict:
-    chunks = retrieve(question, k)
+def answer(
+    question: str, k: int = K, tickers: list[str] | None = None,
+    years: list[str] | None = None, sections: list[str] | None = None,
+) -> dict:
+    """Answer from the filings. Filters work as in search_10k.retrieve()."""
+    filters = filters_for(question, tickers, years, sections)
+    chunks = retrieve(question, k, **filters)
+    if not chunks:  # nothing matches the filters, e.g. a year with no filing loaded
+        return {"question": question, "answer": f"{NOT_FOUND}.", "found": False,
+                "cited": [], "retrieved": [], "filters": filters}
+
     client = anthropic.Anthropic()
     response = client.beta.messages.create(
         model=MODEL,
@@ -120,13 +132,17 @@ def answer(question: str, k: int = K) -> dict:
         "found": not raw.startswith(NOT_FOUND),
         "cited": cited,
         "retrieved": chunks,
+        "filters": filters,
     }
 
 
 def main() -> None:
-    if len(sys.argv) != 2:
-        sys.exit('Usage: python answer_10k.py "question"')
-    result = answer(sys.argv[1])
+    parser = argparse.ArgumentParser(description="Answer a question from the 10-K filings.")
+    parser.add_argument("question")
+    add_filter_args(parser)
+    args = parser.parse_args()
+    result = answer(args.question, **filter_kwargs(args))
+    print(f"[{describe(result['filters'])}]\n")
     print(result["answer"])
     if result["cited"]:
         print("\nSources used:")

@@ -99,6 +99,24 @@ for the prior year. `embed_10k.py` and `ingest.py` keep the keyword index in
 step with Chroma. `retrieve(question, k, mode="dense")` runs meaning-only
 search for comparison; see `eval/hybrid_comparison.md`.
 
+### Filters
+
+`retrieve()` and `answer()` take optional `tickers`, `years` and `sections`
+filters (`--ticker`, `--year`, `--section` on the command line, each repeatable).
+Any filter not given is detected from the question:
+
+- **Year:** "2025", "fiscal 2025" or "FY2025" limits results to that fiscal
+  year's filing. A year with no filing loaded uses the next one or two filings,
+  which report it as a prior year; if none covers it, nothing is returned and
+  `answer()` replies "Not found in the filings." without calling the model.
+- **Section:** only when the question names one ("Item 7", "signature page").
+- **Company:** see below.
+
+```powershell
+python answer_10k.py "What risks did Tesla list in 2025?"
+python search_10k.py "tariff risks" --ticker F --ticker GM --year 2025 --section "Item 1A"
+```
+
 When a question names companies ("Tesla", "Ford and GM", "Google"), results
 are limited to those companies, using the aliases in `tickers.json`. Tickers
 only match in capitals, so a lowercase "gm" doesn't trigger a filter. Questions

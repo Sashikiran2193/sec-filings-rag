@@ -23,7 +23,7 @@ a an and are as at be been by can could did do does for from had has have how i 
 into is it its me my of on or our over should so than that the their them then there
 these they this those to under was we were what when where which who whom whose why
 will with would you your about all any each every other some such tell describe
-describes say says said mention mentions company companies firm firms business businesses
+describes say says said mention mentions list lists listed company companies firm firms business businesses
 """.split())
 YEARS = re.compile(r"\b(?:19|20)\d\d\b|\bfiscal\b|\bFY\d*\b", re.IGNORECASE)
 # Abbreviations filings spell out. Each expands to the abbreviation OR the full phrase.
@@ -45,11 +45,24 @@ def connect() -> sqlite3.Connection:
     return sqlite3.connect(DB_FILE)
 
 
+COLUMNS = ["id", "ticker", "year", "section", "text"]
+
+
 def _insert(db: sqlite3.Connection, chunks: list[dict]) -> None:
     db.executemany(
-        "INSERT INTO chunks (id, ticker, year, text) VALUES (?, ?, ?, ?)",
-        [(c["id"], c["ticker"], c["year"], c["text"]) for c in chunks],
+        "INSERT INTO chunks (id, ticker, year, section, text) VALUES (?, ?, ?, ?, ?)",
+        [(c["id"], c["ticker"], c["year"], c["section"], c["text"]) for c in chunks],
     )
+
+
+def ensure() -> None:
+    """Build the index if it's missing or was built before a column was added."""
+    if DB_FILE.exists():
+        with connect() as db:
+            columns = [row[1] for row in db.execute("PRAGMA table_info(chunks)")]
+        if columns == COLUMNS:
+            return
+    rebuild_from_file()
 
 
 def rebuild(chunks: list[dict]) -> None:
@@ -58,14 +71,14 @@ def rebuild(chunks: list[dict]) -> None:
         # porter: match "tariff" with "tariffs"; ids and filters aren't searched.
         db.execute(
             "CREATE VIRTUAL TABLE chunks USING fts5("
-            "id UNINDEXED, ticker UNINDEXED, year UNINDEXED, text, tokenize='porter unicode61')"
+            "id UNINDEXED, ticker UNINDEXED, year UNINDEXED, section UNINDEXED, text, "
+            "tokenize='porter unicode61')"
         )
         _insert(db, chunks)
 
 
 def replace_filing(ticker: str, year: str, chunks: list[dict]) -> None:
-    if not DB_FILE.exists():
-        rebuild_from_file()
+    ensure()
     with connect() as db:
         db.execute("DELETE FROM chunks WHERE ticker = ? AND year = ?", (ticker, year))
         _insert(db, chunks)
@@ -94,18 +107,30 @@ def to_query(question: str) -> str | None:
     return " OR ".join(dict.fromkeys(terms)) or None
 
 
-def search(question: str, n: int, ticker: str | None = None) -> list[str]:
+def loaded_years() -> list[str]:
+    ensure()
+    with connect() as db:
+        return sorted(row[0] for row in db.execute("SELECT DISTINCT year FROM chunks"))
+
+
+def search(
+    question: str, n: int, ticker: str | None = None,
+    years: list[str] | None = None, sections: list[str] | None = None,
+) -> list[str]:
     """Ids of the n chunks that best match the question's keywords, best first."""
     query = to_query(question)
     if query is None:
         return []
-    if not DB_FILE.exists():
-        rebuild_from_file()
+    ensure()
     sql = "SELECT id FROM chunks WHERE chunks MATCH ?"
     params: list = [query]
     if ticker:
         sql += " AND ticker = ?"
         params.append(ticker)
+    for column, values in (("year", years), ("section", sections)):
+        if values:
+            sql += f" AND {column} IN ({', '.join('?' * len(values))})"
+            params += values
     sql += " ORDER BY bm25(chunks) LIMIT ?"
     params.append(n)
     with connect() as db:
