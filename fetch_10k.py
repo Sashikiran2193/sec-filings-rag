@@ -29,16 +29,27 @@ def get(url: str) -> bytes:
 
 
 @cache
-def ticker_to_cik() -> dict[str, int]:
+def sec_tickers() -> dict[str, dict]:
+    """Map ticker -> {"cik_str", "ticker", "title"} from the SEC's ticker list."""
     tickers = json.loads(get("https://www.sec.gov/files/company_tickers.json"))
-    return {entry["ticker"].upper(): entry["cik_str"] for entry in tickers.values()}
+    return {entry["ticker"].upper(): entry for entry in tickers.values()}
+
+
+def lookup(ticker: str) -> dict:
+    try:
+        return sec_tickers()[ticker.upper()]
+    except KeyError:
+        raise ValueError(f"Ticker not found: {ticker}") from None
 
 
 def lookup_cik(ticker: str) -> int:
-    try:
-        return ticker_to_cik()[ticker.upper()]
-    except KeyError:
-        raise ValueError(f"Ticker not found: {ticker}") from None
+    return lookup(ticker)["cik_str"]
+
+
+def company_name(ticker: str) -> str:
+    """Name from tickers.json "names", else the SEC's (often all-caps) title."""
+    names = json.loads(TICKERS_FILE.read_text()).get("names", {})
+    return names.get(ticker.upper()) or lookup(ticker)["title"]
 
 
 @cache

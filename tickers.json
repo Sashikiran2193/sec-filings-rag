@@ -3,5 +3,15 @@
   "tickers": {
     "Autos": ["F", "GM", "TSLA", "RIVN"],
     "Cloud and data": ["MSFT", "AMZN", "GOOGL", "SNOW"]
+  },
+  "names": {
+    "F": "Ford Motor Company",
+    "GM": "General Motors Company",
+    "TSLA": "Tesla, Inc.",
+    "RIVN": "Rivian Automotive, Inc.",
+    "MSFT": "Microsoft Corporation",
+    "AMZN": "Amazon.com, Inc.",
+    "GOOGL": "Alphabet Inc.",
+    "SNOW": "Snowflake Inc."
   }
 }

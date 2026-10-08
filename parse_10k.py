@@ -20,6 +20,7 @@ from pathlib import Path
 
 RAW_DIR = Path("data/raw")
 CLEAN_DIR = Path("data/clean")
+APPENDIX_MIN_CHARS = 20_000  # more than this after SIGNATURES means statements follow
 
 SKIP_TAGS = {"script", "style", "head", "title", "ix:header"}
 VOID_TAGS = {"br", "hr", "img", "meta", "link", "input", "col", "area", "base", "wbr"}
@@ -125,10 +126,13 @@ ITEM_ORDER = [
     "5", "6", "7", "7a", "8", "9", "9a", "9b", "9c",
     "10", "11", "12", "13", "14", "15", "16",
 ]
-# Lines repeated on every page: "12", "PART II", "Item 7", "Item 1B, 1C",
-# "Item 1. Business (Continued)".
+# Lines repeated on every page: "12", "77.", "PART II", "Item 7", "Item 1B, 1C",
+# "Item 1. Business (Continued)", "Table of Contents | Alphabet Inc.",
+# "Apple Inc. | 2025 Form 10-K | 21".
 PAGE_NOISE = re.compile(
-    r"^(\d{1,3}|part [iv]+\.?|item [\d a-c,]+|item .*\(continued\))$", re.IGNORECASE
+    r"^(\d{1,3}\.?|part [iv]+\.?|item [\d a-c,]+|item .*\(continued\)"
+    r"|table of contents( \| .*)?|.* \| \d{4} form 10-k \| \d+)$",
+    re.IGNORECASE,
 )
 
 
@@ -161,6 +165,15 @@ def split_items(text: str) -> dict[str, str]:
     for (item, start), (_, end) in zip(starts, starts[1:] + [(None, len(text))]):
         lines = text[start:end].strip().splitlines()
         sections[item] = "\n".join(l for l in lines if not PAGE_NOISE.match(l))
+
+    # Some filers (e.g. Ford) put the financial statements after the signature
+    # pages, so they would land in the last item. Move them to Item 8.
+    if starts and "8" in sections:
+        last = starts[-1][0]
+        sig = re.search(r"^signatures$", sections[last], re.IGNORECASE | re.MULTILINE)
+        if sig and len(sections[last]) - sig.start() > APPENDIX_MIN_CHARS:
+            sections["8"] += "\n" + sections[last][sig.start():]
+            sections[last] = sections[last][: sig.start()].strip()
     return sections
 
 
