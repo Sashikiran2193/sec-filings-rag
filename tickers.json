@@ -2,7 +2,8 @@
   "years": ["2024", "2025", "2026"],
   "tickers": {
     "Autos": ["F", "GM", "TSLA", "RIVN"],
-    "Cloud and data": ["MSFT", "AMZN", "GOOGL", "SNOW"]
+    "Cloud and data": ["MSFT", "AMZN", "GOOGL", "SNOW"],
+    "Semiconductors": ["NVDA", "AMD"]
   },
   "names": {
     "F": "Ford Motor Company",
@@ -12,7 +13,9 @@
     "MSFT": "Microsoft Corporation",
     "AMZN": "Amazon.com, Inc.",
     "GOOGL": "Alphabet Inc.",
-    "SNOW": "Snowflake Inc."
+    "SNOW": "Snowflake Inc.",
+    "NVDA": "NVIDIA Corporation",
+    "AMD": "Advanced Micro Devices, Inc."
   },
   "aliases": {
     "F": ["Ford"],
@@ -23,6 +26,8 @@
     "AMZN": ["Amazon", "AMZN", "AWS"],
     "GOOGL": ["Alphabet", "Google", "GOOGL", "GOOG"],
     "SNOW": ["Snowflake"],
+    "NVDA": ["Nvidia", "NVDA"],
+    "AMD": ["Advanced Micro Devices", "AMD"],
     "AAPL": ["Apple", "AAPL"]
   }
 }
