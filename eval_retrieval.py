@@ -1,16 +1,20 @@
 """Run a fixed set of questions through retrieve() and save the results.
 
-Usage: python eval_retrieval.py
+Usage:
+  python eval_retrieval.py                 hybrid search (the default) -> eval/retrieval_results.md
+  python eval_retrieval.py --mode dense    meaning-only search -> eval/retrieval_results_dense.md
 
-Writes eval/retrieval_results.md: for each question, the top five chunks with
-metadata, distance and the first 400 characters, for reviewing by hand.
+For each question, writes the chunks retrieve() returns (top five, or two per
+company for questions about several companies) with metadata, distance and the
+first 400 characters, for reviewing by hand.
 """
 
+import argparse
 from pathlib import Path
 
 from search_10k import TOP_K, companies_in, retrieve
 
-OUT_FILE = Path("eval/retrieval_results.md")
+OUT_FILES = {"hybrid": Path("eval/retrieval_results.md"), "dense": Path("eval/retrieval_results_dense.md")}
 
 QUESTIONS = [
     "What supply chain risks does Tesla describe?",
@@ -27,11 +31,16 @@ QUESTIONS = [
 
 
 def main() -> None:
-    lines = ["# Retrieval results", "", f"Top {TOP_K} chunks from `retrieve()` for each question.", ""]
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--mode", choices=OUT_FILES, default="hybrid")
+    mode = parser.parse_args().mode
+    out_file = OUT_FILES[mode]
+
+    lines = ["# Retrieval results", "", f'Chunks from `retrieve(question, {TOP_K}, mode="{mode}")` for each question.', ""]
     for n, question in enumerate(QUESTIONS, start=1):
         tickers = companies_in(question)
         lines += [f"## Q{n}. {question}", "", f"Companies filter: {', '.join(tickers) or 'all'}", ""]
-        for rank, hit in enumerate(retrieve(question, TOP_K), start=1):
+        for rank, hit in enumerate(retrieve(question, TOP_K, mode=mode), start=1):
             text = hit["text"][:400].replace("\n", " / ")
             lines += [
                 f"{rank}. **{hit['company']} | {hit['year']} | {hit['section']} {hit['section_title']}**"
@@ -39,9 +48,9 @@ def main() -> None:
                 f"   > {text}...",
                 "",
             ]
-    OUT_FILE.parent.mkdir(exist_ok=True)
-    OUT_FILE.write_text("\n".join(lines), encoding="utf-8")
-    print(f"Wrote {OUT_FILE} ({len(QUESTIONS)} questions)")
+    out_file.parent.mkdir(exist_ok=True)
+    out_file.write_text("\n".join(lines), encoding="utf-8")
+    print(f"Wrote {out_file} ({len(QUESTIONS)} questions)")
 
 
 if __name__ == "__main__":

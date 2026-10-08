@@ -11,7 +11,7 @@ Retrieval over SEC 10-K filings: download, clean, chunk, embed and search.
 | 3. Chunk with metadata | `chunk_10k.py` | `data/chunks/chunks.jsonl` |
 | 4. Embed and load the vector store | `embed_10k.py` | `chroma/` (collection `sec_10k`) |
 | 5. Search | `search_10k.py` | prints top 5 chunks; `retrieve(question, k)` for code |
-| 6. Evaluate retrieval | `eval_retrieval.py` | `eval/retrieval_results.md` (reviewed in `eval/retrieval_review.md`) |
+| 6. Evaluate retrieval | `eval_retrieval.py [--mode dense]` | `eval/retrieval_results.md` (reviewed in `eval/retrieval_review.md`, `eval/hybrid_comparison.md`) |
 | 7. Answer with citations | `answer_10k.py` | answer citing company, fiscal year and section; `answer(question)` for code |
 
 Answers use Claude (`claude-opus-5-5`) and need `ANTHROPIC_API_KEY` in `.env`.
@@ -87,6 +87,17 @@ Changing the model means re-chunking (if its token limit differs) and
 re-embedding every chunk, since vectors from different models don't mix.
 
 ## Search
+
+Search is hybrid. Each question runs through two searches: meaning-based
+vector search in Chroma and keyword (BM25) search in `data/keywords.db`
+(SQLite full-text search, built by `keyword_index.py`). Their top 20 are merged
+with reciprocal rank fusion, so a chunk that ranks well in either list rises.
+Keyword search catches exact terms that vector search misses, such as "Chief
+Executive Officer" on a signature page or "rare earth". It expands a few
+abbreviations (CEO, CFO, EV, AI) and ignores years, which every filing repeats
+for the prior year. `embed_10k.py` and `ingest.py` keep the keyword index in
+step with Chroma. `retrieve(question, k, mode="dense")` runs meaning-only
+search for comparison; see `eval/hybrid_comparison.md`.
 
 When a question names companies ("Tesla", "Ford and GM", "Google"), results
 are limited to those companies, using the aliases in `tickers.json`. Tickers

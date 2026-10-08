@@ -6,6 +6,10 @@
 4. **Chunk size:** bge-small reads only 512 tokens, and half the 500–800 token chunks were longer, so their ends were never embedded. Re-chunked to at most 480 tokens counted with the model's own tokenizer, leaving room for a header, and fixed an overlap bug that let one chunk reach 528.
 5. **Search ignored the company:** filings say "we", not "Tesla", so a Tesla question returned Alphabet first. Now each chunk is embedded with a company/year/section header, questions that name a company are filtered to it, and comparison questions get results from each company named.
 
+## Week 2
+
+- **Exact terms got lost in meaning-based search:** "Who is the CEO of all companies?" named only 7 of 11 CEOs, because signature pages (a list of names and titles) don't *mean* much like the question even though they contain "Chief Executive Officer". Added keyword search (SQLite FTS5, BM25) merged with vector search by reciprocal rank fusion; all 11 are now covered. Years had to be left out of keyword queries, or "fiscal 2025" matched the FY2026 filing first. Before/after in `eval/hybrid_comparison.md`.
+
 ## Known issues (not fixed)
 
 - **Lowercase tickers aren't recognized:** "supply chain risk for amd" searched every company, so NVIDIA's similar risk factors filled 3 of the top 5. Ticker aliases only match in capitals, so "gm" doesn't trigger General Motors. Workaround: type `AMD`, or pass the ticker: `search_10k.py "supply chain risk" AMD`. Look for `[companies: all]` above the results.

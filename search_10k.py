@@ -25,12 +25,17 @@ from functools import cache
 os.environ.setdefault("HF_HUB_DISABLE_SYMLINKS_WARNING", "1")
 
 import chromadb
+import numpy as np
 from fastembed import TextEmbedding
+
+import keyword_index
 
 from embed_10k import CHROMA_DIR, COLLECTION, EMBED_MODEL, QUERY_PREFIX
 from fetch_10k import TICKERS_FILE
 
 TOP_K = 5
+CANDIDATES = 20  # from each search, before merging
+RRF_K = 60  # standard reciprocal rank fusion constant
 MIN_PER_COMPANY = 2  # when several companies are searched, each gets at least this many
 # "all companies", "each company", "every company's", "which companies", "all of the companies"
 ALL_COMPANIES = re.compile(r"\b(all|each|every|which|what)\s+(of\s+the\s+)?compan(y|ies)", re.IGNORECASE)
@@ -77,8 +82,7 @@ def companies_in(question: str) -> list[str]:
     return found
 
 
-def query(vector: list[float], n: int, ticker: str | None) -> list[dict]:
-    where = {"ticker": ticker} if ticker else None
+def dense_query(vector: list[float], n: int, where: dict | None) -> list[dict]:
     r = collection().query(query_embeddings=[vector], n_results=n, where=where)
     return [
         {"id": id_, "text": doc, "distance": dist, **meta}
@@ -86,22 +90,56 @@ def query(vector: list[float], n: int, ticker: str | None) -> list[dict]:
     ]
 
 
-def retrieve(question: str, k: int = TOP_K, tickers: list[str] | None = None) -> list[dict]:
-    """Return the top chunks for a question, closest first.
+def fetch(ids: list[str], vector: list[float]) -> dict[str, dict]:
+    """Chunks found only by keyword search, with their cosine distance to the question."""
+    r = collection().get(ids=ids, include=["documents", "metadatas", "embeddings"])
+    return {
+        id_: {"id": id_, "text": doc, "distance": 1 - float(np.dot(vector, emb)), **meta}
+        for id_, doc, meta, emb in zip(r["ids"], r["documents"], r["metadatas"], r["embeddings"])
+    }
+
+
+def query(vector: list[float], question: str, n: int, ticker: str | None, mode: str) -> list[dict]:
+    """Top n chunks for one company (or all), by meaning alone or merged with keywords."""
+    where = {"ticker": ticker} if ticker else None
+    if mode == "dense":
+        return dense_query(vector, n, where)
+
+    # Reciprocal rank fusion: a chunk scores 1/(RRF_K + rank) in each list it's in.
+    dense = dense_query(vector, CANDIDATES, where)
+    keyword_ids = keyword_index.search(question, CANDIDATES, ticker)
+    scores: dict[str, float] = {}
+    for ranked in ([h["id"] for h in dense], keyword_ids):
+        for rank, id_ in enumerate(ranked, start=1):
+            scores[id_] = scores.get(id_, 0) + 1 / (RRF_K + rank)
+    top = sorted(scores, key=scores.get, reverse=True)[:n]
+
+    hits = {h["id"]: h for h in dense}
+    keyword_only = [i for i in top if i not in hits]
+    if keyword_only:
+        hits |= fetch(keyword_only, vector)
+    return [{**hits[i], "score": scores[i]} for i in top if i in hits]
+
+
+def retrieve(question: str, k: int = TOP_K, tickers: list[str] | None = None, mode: str = "hybrid") -> list[dict]:
+    """Return the top chunks for a question, best first.
 
     Each chunk is a dict: id, text, distance, ticker, company, year, section,
-    section_title, chunk, tokens. Companies named in the question (or given as
-    `tickers`) limit the search to them; with more than one, each company gets
-    an equal share of k (rounded up, and at least MIN_PER_COMPANY), so more
-    than k chunks can come back.
+    section_title, chunk, tokens (plus score, in hybrid mode). Companies named
+    in the question (or given as `tickers`) limit the search to them; with more
+    than one, each company gets an equal share of k (rounded up, and at least
+    MIN_PER_COMPANY), so more than k chunks can come back.
+
+    mode "hybrid" (default) merges meaning-based and keyword search; "dense"
+    uses meaning alone.
     """
     tickers = tickers or companies_in(question)
     vector = next(iter(model().embed([QUERY_PREFIX + question]))).tolist()
     if len(tickers) > 1:
         per_company = max(MIN_PER_COMPANY, -(-k // len(tickers)))  # ceiling division
-        hits = [h for t in tickers for h in query(vector, per_company, t)]
-        return sorted(hits, key=lambda h: h["distance"])
-    return query(vector, k, tickers[0] if tickers else None)
+        hits = [h for t in tickers for h in query(vector, question, per_company, t, mode)]
+        return sorted(hits, key=lambda h: -h["score"] if mode == "hybrid" else h["distance"])
+    return query(vector, question, k, tickers[0] if tickers else None, mode)
 
 
 def search(question: str, tickers: list[str] | None = None) -> None:

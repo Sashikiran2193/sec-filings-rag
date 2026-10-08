@@ -22,6 +22,7 @@ os.environ.setdefault("HF_HUB_DISABLE_SYMLINKS_WARNING", "1")  # harmless on Win
 import chromadb
 from fastembed import TextEmbedding
 
+import keyword_index
 from chunk_10k import tokenizer
 
 CHUNKS_FILE = Path("data/chunks/chunks.jsonl")
@@ -96,6 +97,7 @@ def replace_filing(collection, model: TextEmbedding, ticker: str, year: str, chu
     vectors = embed_all(model, texts, progress=False)
     collection.delete(where=filing_filter(ticker, year))
     store(collection, chunks, vectors)
+    keyword_index.replace_filing(ticker, year, chunks)
 
 
 def store(collection, chunks: list[dict], vectors: list[list[float]]) -> None:
@@ -120,6 +122,8 @@ def main() -> None:
     collection = get_collection(chromadb.PersistentClient(path=str(CHROMA_DIR)), reset=True)
     store(collection, chunks, vectors)
     print(f"Stored {collection.count()} chunks in {CHROMA_DIR}/ (collection '{COLLECTION}')")
+    keyword_index.rebuild(chunks)
+    print(f"Rebuilt keyword index {keyword_index.DB_FILE}")
 
 
 if __name__ == "__main__":
