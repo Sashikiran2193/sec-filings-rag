@@ -1,0 +1,7 @@
+{
+  "years": ["2024", "2025", "2026"],
+  "tickers": {
+    "Autos": ["F", "GM", "TSLA", "RIVN"],
+    "Cloud and data": ["MSFT", "AMZN", "GOOGL", "SNOW"]
+  }
+}
