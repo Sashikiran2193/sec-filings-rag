@@ -21,6 +21,9 @@ from pathlib import Path
 RAW_DIR = Path("data/raw")
 CLEAN_DIR = Path("data/clean")
 APPENDIX_MIN_CHARS = 20_000  # more than this after SIGNATURES means statements follow
+AUDITOR_REPORT = re.compile(
+    r"^report of independent registered public accounting firm", re.IGNORECASE | re.MULTILINE
+)
 
 SKIP_TAGS = {"script", "style", "head", "title", "ix:header"}
 VOID_TAGS = {"br", "hr", "img", "meta", "link", "input", "col", "area", "base", "wbr"}
@@ -166,14 +169,23 @@ def split_items(text: str) -> dict[str, str]:
         lines = text[start:end].strip().splitlines()
         sections[item] = "\n".join(l for l in lines if not PAGE_NOISE.match(l))
 
-    # Some filers (e.g. Ford) put the financial statements after the signature
-    # pages, so they would land in the last item. Move them to Item 8.
-    if starts and "8" in sections:
+    # The signature page (who signed: CEO, CFO, directors) follows the last item.
+    # Split it into its own section so it isn't cited as, say, Item 16.
+    if starts:
         last = starts[-1][0]
         sig = re.search(r"^signatures$", sections[last], re.IGNORECASE | re.MULTILINE)
-        if sig and len(sections[last]) - sig.start() > APPENDIX_MIN_CHARS:
-            sections["8"] += "\n" + sections[last][sig.start():]
+        if sig:
+            signatures = sections[last][sig.start():]
             sections[last] = sections[last][: sig.start()].strip()
+            # Some filers (e.g. Ford) put the financial statements after the
+            # signatures; they start at the auditor's report and belong in Item 8.
+            if len(signatures) > APPENDIX_MIN_CHARS and "8" in sections:
+                audit = AUDITOR_REPORT.search(signatures)
+                cut = audit.start() if audit else 0
+                sections["8"] += "\n" + signatures[cut:]
+                signatures = signatures[:cut]
+            if signatures.strip():
+                sections["signatures"] = signatures.strip()
     return sections
 
 

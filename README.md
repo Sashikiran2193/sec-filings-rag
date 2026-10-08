@@ -93,6 +93,13 @@ are limited to those companies, using the aliases in `tickers.json`. Tickers
 only match in capitals, so a lowercase "gm" doesn't trigger a filter. Questions
 without a company name search everything.
 
+Questions about "all companies", "each company", "every company" or "which
+companies" search every company separately, so each one gets at least 2 of the
+results instead of the closest few companies taking them all.
+
+Each filing's signature page (the CEO, CFO and directors who signed it) is its
+own section, `Signature page`, rather than part of the last 10-K item.
+
 ## Known limits
 
 - Tables are flattened to one row per line with ` | ` between cells; alignment

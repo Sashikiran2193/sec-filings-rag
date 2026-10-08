@@ -52,7 +52,13 @@ SECTION_TITLES = {
     "13": "Certain Relationships and Related Transactions",
     "14": "Principal Accountant Fees and Services",
     "15": "Exhibits and Financial Statement Schedules", "16": "Form 10-K Summary",
+    "signatures": "(officers and directors who signed the report)",
 }
+
+
+def section_name(item: str) -> str:
+    """ "1a" -> "Item 1A"; the signature page isn't a numbered item."""
+    return "Signature page" if item == "signatures" else f"Item {item.upper()}"
 # Sentence end: ". " / "? " / "! " followed by a capital, digit, quote or bracket.
 SENTENCE_END = re.compile(r"(?:(?<=[.!?])|(?<=[.!?][\"”)]))\s+(?=[A-Z0-9“\"(])")
 
@@ -140,7 +146,7 @@ def chunk_filing(ticker: str, year: str) -> list[dict]:
                 "ticker": ticker,
                 "company": company,
                 "year": year,
-                "section": f"Item {item.upper()}",
+                "section": section_name(item),
                 "section_title": SECTION_TITLES[item],
                 "chunk": i,
                 "tokens": count_tokens(chunk),
@@ -174,11 +180,10 @@ def print_counts(records: list[dict]) -> None:
     print(f"{'Total':<8} {len(records):>7}\n")
 
     by_section = Counter(r["section"] for r in records)
-    order = {f"Item {k.upper()}": i for i, k in enumerate(SECTION_TITLES)}
-    print(f"{'Section':<9} {'Chunks':>7}  Title")
-    for section, n in sorted(by_section.items(), key=lambda kv: order[kv[0]]):
-        title = SECTION_TITLES[section.removeprefix("Item ").lower()]
-        print(f"{section:<9} {n:>7}  {title}")
+    print(f"{'Section':<14} {'Chunks':>7}  Title")
+    for item, title in SECTION_TITLES.items():
+        if section_name(item) in by_section:
+            print(f"{section_name(item):<14} {by_section[section_name(item)]:>7}  {title}")
 
 
 if __name__ == "__main__":

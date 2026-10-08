@@ -31,6 +31,9 @@ from embed_10k import CHROMA_DIR, COLLECTION, EMBED_MODEL, QUERY_PREFIX
 from fetch_10k import TICKERS_FILE
 
 TOP_K = 5
+MIN_PER_COMPANY = 2  # when several companies are searched, each gets at least this many
+# "all companies", "each company", "every company's", "which companies", "all of the companies"
+ALL_COMPANIES = re.compile(r"\b(all|each|every|which|what)\s+(of\s+the\s+)?compan(y|ies)", re.IGNORECASE)
 TEST_SEARCHES = [
     "What supply chain risks does Tesla describe?",
     "How fast did Microsoft's cloud revenue grow?",
@@ -48,8 +51,18 @@ def model() -> TextEmbedding:
     return TextEmbedding(EMBED_MODEL)
 
 
+def all_tickers() -> list[str]:
+    config = json.loads(TICKERS_FILE.read_text())
+    listed = [t for group in config["tickers"].values() for t in group]
+    return listed + [t for t in config["aliases"] if t not in listed]
+
+
 def companies_in(question: str) -> list[str]:
-    """Tickers whose aliases appear in the question as whole words."""
+    """Tickers whose aliases appear in the question as whole words.
+
+    A question about "all/each/every/which companies" with none named means
+    every company, so each one gets a share of the results.
+    """
     aliases = json.loads(TICKERS_FILE.read_text())["aliases"]
     found = []
     for ticker, names in aliases.items():
@@ -59,6 +72,8 @@ def companies_in(question: str) -> list[str]:
             if re.search(rf"\b{re.escape(name)}\b", question, flags):
                 found.append(ticker)
                 break
+    if not found and ALL_COMPANIES.search(question):
+        return all_tickers()
     return found
 
 
@@ -77,12 +92,13 @@ def retrieve(question: str, k: int = TOP_K, tickers: list[str] | None = None) ->
     Each chunk is a dict: id, text, distance, ticker, company, year, section,
     section_title, chunk, tokens. Companies named in the question (or given as
     `tickers`) limit the search to them; with more than one, each company gets
-    an equal share of k (rounded up), so up to k + n - 1 chunks can come back.
+    an equal share of k (rounded up, and at least MIN_PER_COMPANY), so more
+    than k chunks can come back.
     """
     tickers = tickers or companies_in(question)
     vector = next(iter(model().embed([QUERY_PREFIX + question]))).tolist()
     if len(tickers) > 1:
-        per_company = -(-k // len(tickers))  # ceiling division
+        per_company = max(MIN_PER_COMPANY, -(-k // len(tickers)))  # ceiling division
         hits = [h for t in tickers for h in query(vector, per_company, t)]
         return sorted(hits, key=lambda h: h["distance"])
     return query(vector, k, tickers[0] if tickers else None)
