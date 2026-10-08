@@ -1,0 +1,7 @@
+# Week 1 notes: what broke and how it was fixed
+
+1. **EDGAR requests:** the header key was `Sashi-Agent`, and the SEC only accepts `User-Agent`, so every request would have been rejected. Renamed it, and checked the rules on the SEC's own page (10 requests/second, name and email required).
+2. **Section splitting:** each item heading appears in the table of contents and again as a page header (Microsoft, Ford), so sections came out empty or mixed up, and Ford's financials (placed after the signatures) landed in Item 16. Now the table of contents is skipped, each item starts at its first real heading, page headers are stripped, and anything after SIGNATURES moves to Item 8.
+3. **Tables:** `$` and `%` sat in cells of their own, which shifted numbers into the wrong columns, and Microsoft's tables split one cell per line because of line breaks in the HTML source. Now `$` cells are dropped, `%` is joined onto its number, and source line breaks count as spaces.
+4. **Chunk size:** bge-small reads only 512 tokens, and half the 500–800 token chunks were longer, so their ends were never embedded. Re-chunked to at most 480 tokens counted with the model's own tokenizer, leaving room for a header, and fixed an overlap bug that let one chunk reach 528.
+5. **Search ignored the company:** filings say "we", not "Tesla", so a Tesla question returned Alphabet first. Now each chunk is embedded with a company/year/section header, questions that name a company are filtered to it, and comparison questions get results from each company named.

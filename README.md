@@ -49,6 +49,17 @@ python fetch_10k.py; python parse_10k.py; python chunk_10k.py; python embed_10k.
 
 `embed_10k.py` rebuilds the whole vector store from `chunks.jsonl`.
 
+## EDGAR access rules
+
+From the SEC's [Accessing EDGAR Data](https://www.sec.gov/search-filings/edgar-search-assistance/accessing-edgar-data)
+page (checked 2026-10-08):
+
+- **Rate limit:** at most 10 requests per second. `fetch_10k.py` waits 0.2s
+  after each request, so it stays at 5 or fewer.
+- **User-Agent:** every request must declare a name and contact email in the
+  `User-Agent` header; requests without one are rejected.
+- The SEC may limit or block automated traffic that doesn't follow these rules.
+
 ## Embeddings
 
 - **Model:** `BAAI/bge-small-en-v1.5`, run locally with `fastembed` (no API key)
