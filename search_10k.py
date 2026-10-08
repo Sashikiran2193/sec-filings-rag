@@ -4,6 +4,10 @@ Usage:
   python search_10k.py                          run the three test searches
   python search_10k.py "question" [TICKER]      search, optionally within one company
 
+In code:
+  from search_10k import retrieve
+  chunks = retrieve("What supply chain risks does Tesla describe?", k=5)
+
 If the question names companies ("Tesla", "Ford and GM"), results are limited
 to those companies automatically, using the aliases in tickers.json. A ticker
 given on the command line overrides that.
@@ -16,6 +20,7 @@ import json
 import os
 import re
 import sys
+from functools import cache
 
 os.environ.setdefault("HF_HUB_DISABLE_SYMLINKS_WARNING", "1")
 
@@ -33,6 +38,16 @@ TEST_SEARCHES = [
 ]
 
 
+@cache
+def collection():
+    return chromadb.PersistentClient(path=str(CHROMA_DIR)).get_collection(COLLECTION)
+
+
+@cache
+def model() -> TextEmbedding:
+    return TextEmbedding(EMBED_MODEL)
+
+
 def companies_in(question: str) -> list[str]:
     """Tickers whose aliases appear in the question as whole words."""
     aliases = json.loads(TICKERS_FILE.read_text())["aliases"]
@@ -47,41 +62,50 @@ def companies_in(question: str) -> list[str]:
     return found
 
 
-def query(collection, vector: list[float], n: int, ticker: str | None) -> list[tuple]:
+def query(vector: list[float], n: int, ticker: str | None) -> list[dict]:
     where = {"ticker": ticker} if ticker else None
-    r = collection.query(query_embeddings=[vector], n_results=n, where=where)
-    return list(zip(r["documents"][0], r["metadatas"][0], r["distances"][0]))
+    r = collection().query(query_embeddings=[vector], n_results=n, where=where)
+    return [
+        {"id": id_, "text": doc, "distance": dist, **meta}
+        for id_, doc, meta, dist in zip(r["ids"][0], r["documents"][0], r["metadatas"][0], r["distances"][0])
+    ]
 
 
-def search(collection, model: TextEmbedding, question: str, tickers: list[str] | None = None) -> None:
+def retrieve(question: str, k: int = TOP_K, tickers: list[str] | None = None) -> list[dict]:
+    """Return the top chunks for a question, closest first.
+
+    Each chunk is a dict: id, text, distance, ticker, company, year, section,
+    section_title, chunk, tokens. Companies named in the question (or given as
+    `tickers`) limit the search to them; with more than one, each company gets
+    an equal share of k (rounded up), so up to k + n - 1 chunks can come back.
+    """
     tickers = tickers or companies_in(question)
-    vector = next(iter(model.embed([QUERY_PREFIX + question]))).tolist()
+    vector = next(iter(model().embed([QUERY_PREFIX + question]))).tolist()
     if len(tickers) > 1:
-        # Comparison question: split the top results evenly across the companies.
-        per_company = -(-TOP_K // len(tickers))  # ceiling division
-        hits = [h for t in tickers for h in query(collection, vector, per_company, t)]
-        hits.sort(key=lambda h: h[2])
-    else:
-        hits = query(collection, vector, TOP_K, tickers[0] if tickers else None)
+        per_company = -(-k // len(tickers))  # ceiling division
+        hits = [h for t in tickers for h in query(vector, per_company, t)]
+        return sorted(hits, key=lambda h: h["distance"])
+    return query(vector, k, tickers[0] if tickers else None)
 
+
+def search(question: str, tickers: list[str] | None = None) -> None:
+    tickers = tickers or companies_in(question)
     print(f'\n=== "{question}"  [companies: {", ".join(tickers) if tickers else "all"}]')
-    for rank, (doc, meta, dist) in enumerate(hits, start=1):
-        snippet = doc[:200].replace("\n", " / ")
+    for rank, hit in enumerate(retrieve(question, TOP_K, tickers), start=1):
+        snippet = hit["text"][:200].replace("\n", " / ")
         print(
-            f"{rank}. {meta['company']} | {meta['year']} | {meta['section']} {meta['section_title']}"
-            f" | chunk {meta['chunk']} | distance {dist:.3f}\n   {snippet}..."
+            f"{rank}. {hit['company']} | {hit['year']} | {hit['section']} {hit['section_title']}"
+            f" | chunk {hit['chunk']} | distance {hit['distance']:.3f}\n   {snippet}..."
         )
 
 
 def main() -> None:
-    collection = chromadb.PersistentClient(path=str(CHROMA_DIR)).get_collection(COLLECTION)
-    model = TextEmbedding(EMBED_MODEL)
     if len(sys.argv) > 1:
         tickers = [sys.argv[2].upper()] if len(sys.argv) > 2 else None
-        search(collection, model, sys.argv[1], tickers)
+        search(sys.argv[1], tickers)
     else:
         for question in TEST_SEARCHES:
-            search(collection, model, question)
+            search(question)
 
 
 if __name__ == "__main__":

@@ -10,7 +10,8 @@ Retrieval over SEC 10-K filings: download, clean, chunk, embed and search.
 | 2. Clean HTML and split by 10-K item | `parse_10k.py` | `data/clean/<ticker>/<year>/item_<n>.txt` |
 | 3. Chunk with metadata | `chunk_10k.py` | `data/chunks/chunks.jsonl` |
 | 4. Embed and load the vector store | `embed_10k.py` | `chroma/` (collection `sec_10k`) |
-| 5. Search | `search_10k.py` | prints top 5 chunks |
+| 5. Search | `search_10k.py` | prints top 5 chunks; `retrieve(question, k)` for code |
+| 6. Evaluate retrieval | `eval_retrieval.py` | `eval/retrieval_results.md` (reviewed in `eval/retrieval_review.md`) |
 
 Tickers and years are listed in `tickers.json`.
 
