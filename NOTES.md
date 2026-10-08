@@ -5,3 +5,8 @@
 3. **Tables:** `$` and `%` sat in cells of their own, which shifted numbers into the wrong columns, and Microsoft's tables split one cell per line because of line breaks in the HTML source. Now `$` cells are dropped, `%` is joined onto its number, and source line breaks count as spaces.
 4. **Chunk size:** bge-small reads only 512 tokens, and half the 500–800 token chunks were longer, so their ends were never embedded. Re-chunked to at most 480 tokens counted with the model's own tokenizer, leaving room for a header, and fixed an overlap bug that let one chunk reach 528.
 5. **Search ignored the company:** filings say "we", not "Tesla", so a Tesla question returned Alphabet first. Now each chunk is embedded with a company/year/section header, questions that name a company are filtered to it, and comparison questions get results from each company named.
+
+## Known issues (not fixed)
+
+- **Lowercase tickers aren't recognized:** "supply chain risk for amd" searched every company, so NVIDIA's similar risk factors filled 3 of the top 5. Ticker aliases only match in capitals, so "gm" doesn't trigger General Motors. Workaround: type `AMD`, or pass the ticker: `search_10k.py "supply chain risk" AMD`. Look for `[companies: all]` above the results.
+- **Unknown or misspelled companies return other companies' results:** searching "nvida" before NVIDIA was loaded returned Microsoft, with no warning. Search always returns the 5 closest chunks. NVIDIA and AMD are now loaded with aliases, but misspellings still aren't caught.
