@@ -229,16 +229,21 @@ def retrieve(
     uses meaning alone.
     """
     f = filters_for(question, tickers, years, sections)
-    vector = next(iter(model().embed([QUERY_PREFIX + question]))).tolist()
     if len(f["tickers"]) > 1:
         per_company = max(MIN_PER_COMPANY, -(-k // len(f["tickers"])))  # ceiling division
-        hits = [
-            h for t in f["tickers"]
-            for h in query(vector, question, per_company, t, years_for(t, f["years"]), f["sections"], mode)
-        ]
+        hits = []
+        for t in f["tickers"]:
+            # Search each company without the others' names: in "AMD vs NVIDIA", AMD's
+            # search would otherwise favor AMD chunks about competing with NVIDIA.
+            own = without_companies(question, [o for o in f["tickers"] if o != t])
+            hits += query(embed(own), own, per_company, t, years_for(t, f["years"]), f["sections"], mode)
         return sorted(hits, key=lambda h: -h["score"] if mode == "hybrid" else h["distance"])
     ticker = f["tickers"][0] if f["tickers"] else None
-    return query(vector, question, k, ticker, f["years"], f["sections"], mode)
+    return query(embed(question), question, k, ticker, f["years"], f["sections"], mode)
+
+
+def embed(question: str) -> list[float]:
+    return next(iter(model().embed([QUERY_PREFIX + question]))).tolist()
 
 
 def describe(f: dict[str, list[str]]) -> str:
