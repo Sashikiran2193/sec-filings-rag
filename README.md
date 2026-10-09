@@ -106,6 +106,7 @@ ticker in `tickers.json` (under `tickers`, plus `names` and `aliases`) and run
 | 6. Answer with citations | `answer_10k.py` | `answer(question)` for code |
 | 7. Ask | `ask.py` | the command-line entry point |
 | Evaluate retrieval | `eval_retrieval.py [--mode dense]` | `eval/` |
+| Test set | `eval/questions.jsonl`, checked by `python eval/validate_questions.py` | 47 questions with verified answers and source quotes |
 
 `ingest.py` runs steps 1-4 for each filing. Answers use Claude
 (`claude-opus-5-5`); the model sees only the retrieved chunks, must cite one
