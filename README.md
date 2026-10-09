@@ -74,7 +74,8 @@ To try it faster, load one filing: `python ingest.py --ticker TSLA --year 2025`.
 python ask.py "What risks did Tesla list in 2025?"
 ```
 
-Each answer takes a few seconds and costs a few cents in API usage. Questions
+Each answer takes a few seconds (around 10 the first time, while the search
+model loads) and costs a few cents in API usage. Questions
 are logged to `logs/ask.jsonl` with the chunks retrieved, the answer and the
 time taken.
 
