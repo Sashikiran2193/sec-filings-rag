@@ -29,7 +29,7 @@ from fastembed import TextEmbedding
 
 from chunk_10k import chunk_filing, save_filing_chunks
 from embed_10k import CHROMA_DIR, EMBED_MODEL, get_collection, is_loaded, replace_filing
-from fetch_10k import TICKERS_FILE, fetch_10k
+from fetch_10k import TICKERS_FILE, fetch_10k, headers
 from parse_10k import parse_filing
 
 LOG_FILE = Path("logs/ingest.log")
@@ -99,6 +99,11 @@ def main() -> int:
     args = parser.parse_args()
 
     setup_logging()
+    try:
+        headers()  # fail now, not after loading the model, if the SEC User-Agent isn't set
+    except RuntimeError as e:
+        log.error("%s", e)
+        return 1
     filings = filings_to_run(args.ticker, args.year)
     log.info("Ingesting %d filing(s)%s", len(filings), " with --force" if args.force else "")
     collection = get_collection(chromadb.PersistentClient(path=str(CHROMA_DIR)))

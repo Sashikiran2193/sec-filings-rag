@@ -23,6 +23,8 @@ from pathlib import Path
 import anthropic
 
 LOG_FILE = Path("logs/ask.jsonl")
+CHUNKS_FILE = Path("data/chunks/chunks.jsonl")
+CHROMA_DIR = Path("chroma")
 
 
 def log(entry: dict) -> None:
@@ -46,6 +48,8 @@ def main() -> int:
         "mode": args.mode,
     }
     start = time.perf_counter()
+    if not (CHUNKS_FILE.exists() and CHROMA_DIR.exists()):
+        return fail(entry, start, "No filings loaded yet. Run: python ingest.py (see README).")
     try:
         result = answer(args.question, **filter_kwargs(args), mode=args.mode)
     except anthropic.AuthenticationError:
@@ -60,10 +64,6 @@ def main() -> int:
         raise
     except RuntimeError as e:  # the model declined, or the answer was cut off
         return fail(entry, start, str(e))
-    except Exception as e:
-        if "does not exist" in str(e) or "no such table" in str(e):
-            return fail(entry, start, "No filings loaded yet. Run: python ingest.py (see README).")
-        raise
     seconds = round(time.perf_counter() - start, 2)
 
     print(f"[{describe(result['filters'])} | search: {args.mode}]\n")
