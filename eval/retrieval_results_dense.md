@@ -25,39 +25,39 @@ Companies filter: TSLA
 
 Companies filter: MSFT
 
-1. **Microsoft Corporation | 2026 | Item 7 Management's Discussion and Analysis** | `MSFT-2026-7-002` | distance 0.213
-   > Highlights from fiscal year 2026 compared with fiscal year 2025 included: / • / Microsoft Cloud revenue increased 27% to $214.4 billion. / • / Commercial remaining performance obligation increased 84% to $678 billion. / • / Microsoft 365 Commercial cloud revenue increased 17%. / • / Microsoft 365 Consumer cloud revenue increased 28%. / • / LinkedIn revenue increased 11%. / • / Dynamics 365 revenue increased 18%. / • / Azure ...
-
-2. **Microsoft Corporation | 2025 | Item 8 Financial Statements and Supplementary Data** | `MSFT-2025-8-061` | distance 0.222
+1. **Microsoft Corporation | 2025 | Item 8 Financial Statements and Supplementary Data** | `MSFT-2025-8-061` | distance 0.222
    > Operating Income | 69,773 | 59,661 | 50,074 / Intelligent Cloud / Revenue | 106,265 | 87,464 | 72,944 / Cost of revenue | 40,171 | 29,611 | 24,109 / Operating expenses | 21,505 | 20,040 | 20,424 / Operating Income | 44,589 | 37,813 | 28,411 / More Personal Computing / Revenue | 54,649 | 50,838 | 44,820 / Cost of revenue | 25,238 | 24,892 | 24,552 / Operating expenses | 15,245 | 13,987 | 10,230 / Operating Income | 14...
 
-3. **Microsoft Corporation | 2026 | Item 8 Financial Statements and Supplementary Data** | `MSFT-2026-8-063` | distance 0.230
-   > Operating expenses | 31,100 | 28,615 | 27,548 / Operating income | 83,879 | 69,773 | 59,661 / Intelligent Cloud / Revenue | 137,791 | 106,265 | 87,464 / Cost of revenue | 57,876 | 40,171 | 29,611 / Operating expenses | 22,943 | 21,505 | 20,040 / Operating income | 56,972 | 44,589 | 37,813 / More Personal Computing / Revenue | 54,052 | 54,649 | 50,838 / Cost of revenue | 23,481 | 25,238 | 24,892 / Operating expenses |...
-
-4. **Microsoft Corporation | 2025 | Item 7 Management's Discussion and Analysis** | `MSFT-2025-7-002` | distance 0.231
+2. **Microsoft Corporation | 2025 | Item 7 Management's Discussion and Analysis** | `MSFT-2025-7-002` | distance 0.231
    > Highlights from fiscal year 2025 compared with fiscal year 2024 included: / • / Microsoft Cloud revenue increased 23% to $168.9 billion. / • / Microsoft 365 Commercial products and cloud services revenue increased 14% driven by Microsoft 365 Commercial cloud revenue growth of 15%. / • / Microsoft 365 Consumer products and cloud services revenue increased 11% driven by Microsoft 365 Consumer cloud revenue grow...
 
-5. **Microsoft Corporation | 2025 | Item 7 Management's Discussion and Analysis** | `MSFT-2025-7-008` | distance 0.236
+3. **Microsoft Corporation | 2025 | Item 7 Management's Discussion and Analysis** | `MSFT-2025-7-008` | distance 0.236
    > Cost of revenue increased $13.7 billion or 19% driven by growth in Microsoft Cloud. / Gross margin increased $22.9 billion or 13% with growth across each of our segments. / • / Gross margin percentage decreased slightly driven by Intelligent Cloud, offset in part by More Personal Computing. / • / Microsoft Cloud gross margin percentage decreased to 69% driven by the impact of scaling our AI infrastructure, ...
+
+4. **Microsoft Corporation | 2025 | Item 7 Management's Discussion and Analysis** | `MSFT-2025-7-009` | distance 0.238
+   > Total / Revenue | 281,724 | 245,122 | 15% / Cost of revenue | 87,831 | 74,114 | 19% / Operating expenses | 65,365 | 61,575 | 6% / Operating Income | 128,528 | 109,433 | 17% / Reportable Segments / Fiscal Year 2025 Compared with Fiscal Year 2024 / Productivity and Business Processes / Revenue increased $14.0 billion or 13%. / • / Microsoft 365 Commercial products and cloud services revenue increased $10.8 billion or 1...
+
+5. **Microsoft Corporation | 2025 | Item 7 Management's Discussion and Analysis** | `MSFT-2025-7-007` | distance 0.254
+   > Azure and other cloud services revenue growth | Revenue from Azure and other cloud services, including cloud and AI consumption-based services, GitHub cloud services, Nuance Healthcare cloud services, virtual desktop offerings, and other cloud services / More Personal Computing / Metrics related to our More Personal Computing segment assess the performance of our key consumer businesses. / Windows OEM a...
 
 ## Q3. What restructuring charges did Ford record in Europe in 2025?
 
 Companies filter: F
 
-1. **Ford Motor Company | 2024 | Item 8 Financial Statements and Supplementary Data** | `F-2024-8-117` | distance 0.250
-   > A sale of the Sanand vehicle assembly and powertrain plants was completed in the first quarter of 2023 (See Note 21) / •Spain. Ceased production of the Mondeo at the Valencia plant in the first quarter of 2022 / •China. Ceased development of certain product programs in 2023 / •Germany. Production of the Focus will cease at our Saarlouis Body and Assembly Plant in 2025. Our plan is to repurpose the facil...
-
-2. **Ford Motor Company | 2025 | Item 8 Financial Statements and Supplementary Data** | `F-2025-8-118` | distance 0.259
+1. **Ford Motor Company | 2025 | Item 8 Financial Statements and Supplementary Data** | `F-2025-8-118` | distance 0.259
    > In addition, in 2024, we offered voluntary separation packages to certain members of our hourly workforce in North America, and these programs are substantially complete. / The following table summarizes the activities for the years ended December 31, which are recorded in Other liabilities and deferred revenue (in millions): / 2024 | 2025 / Beginning balance | 1,086 | 1,098 / Changes in accruals (a) | 97...
 
-3. **Ford Motor Company | 2024 | Item 7 Management's Discussion and Analysis** | `F-2024-7-025` | distance 0.260
-   > Our pre-tax and tax special items were as follows (in millions): / 2022 | 2023 / Restructuring (by Geography) / China | (380) | (958) / Europe | (151) | (978) / Ford Credit - Brazil | (155) | — / Other (a) | (436) | (87) / Subtotal Restructuring | (1,122) | (2,023) / Other Items / Gain/(loss) on Rivian investment | (7,377) | (31) / AV strategy including Argo impairment | (2,812) | — / Transit Connect customs matter | —...
-
-4. **Ford Motor Company | 2025 | Item 7 Management's Discussion and Analysis** | `F-2025-7-012` | distance 0.281
+2. **Ford Motor Company | 2025 | Item 7 Management's Discussion and Analysis** | `F-2025-7-012` | distance 0.281
    > Our pre-tax and tax special items were as follows (in millions): / 2024 | 2025 / Restructuring (by Geography) / Europe | (716) | (736) / North America Hourly Buyouts | (260) | — / China | (16) | — / Subtotal Restructuring | (992) | (736) / Other Items / Model e asset impairment and EV program cancellations | — | (10,657) / BOSK JV disposition | — | (3,173) / All-electric three-row SUV program cancellation and resulti...
 
-5. **Ford Motor Company | 2024 | Item 7 Management's Discussion and Analysis** | `F-2024-7-026` | distance 0.282
-   > 2023 includes $28 million related to restructuring charges in India and $41 million in North America. / (b)Includes related tax effect on special items and tax special items. / We recorded $5.1 billion of pre-tax special item charges in 2023, driven primarily by pension and OPEB remeasurement, restructuring actions in Europe and China, and the Transit Connect customs matter. / In Note 25 of the Notes to...
+3. **Ford Motor Company | 2025 | Item 7 Management's Discussion and Analysis** | `F-2025-7-013` | distance 0.290
+   > For additional information, see Notes 13, 14, and 23 of the Notes to the Financial Statements. Charges related to the all-electric three-row SUV program cancellation and resulting actions, ongoing restructuring actions in Europe, a field service action for fuel injectors, and pension and OPEB remeasurement were also recorded as special items in 2025. / We recorded a $4.8 billion benefit from tax spe...
+
+4. **Ford Motor Company | 2025 | Item 8 Financial Statements and Supplementary Data** | `F-2025-8-107` | distance 0.295
+   > Amortization of issuance costs was $7 million in 2023, 2024, and 2025. The effective interest rate of the notes is 0.3%. / The total estimated fair value of the notes as of December 31, 2024 and 2025 was approximately $2.2 billion and $2.4 billion, respectively. The fair value was determined using commonly employed valuation methodologies applying observable market inputs and is classified within Le...
+
+5. **Ford Motor Company | 2025 | Item 8 Financial Statements and Supplementary Data** | `F-2025-8-117` | distance 0.296
+   > All derivatives are categorized within Level 2 of the fair value hierarchy. / FORD MOTOR COMPANY AND SUBSIDIARIES / NOTES TO THE FINANCIAL STATEMENTS / NOTE 20. EMPLOYEE SEPARATION ACTIONS AND EXIT AND DISPOSAL ACTIVITIES / We generally record costs associated with voluntary separations at the time of employee acceptance. We generally record costs associated with involuntary separation programs when manag...
 
 ## Q4. How do Ford and GM describe the risks of the transition to electric vehicles?
 
@@ -126,17 +126,17 @@ Companies filter: GOOGL
 1. **Alphabet Inc. | 2025 | Item 7 Management's Discussion and Analysis** | `GOOGL-2025-7-012` | distance 0.211
    > •Repurchases of Class A and Class C shares were $6.5 billion and $38.9 billion, respectively, totaling $45.4 billion for the year ended December 31, 2025. / •Operating cash flow was $164.7 billion for the year ended December 31, 2025. / •Capital expenditures, which primarily reflected investments in technical infrastructure, were $91.4 billion for the year ended December 31, 2025. / •As of December 31, ...
 
-2. **Alphabet Inc. | 2024 | Item 8 Financial Statements and Supplementary Data** | `GOOGL-2024-8-029` | distance 0.228
-   > Google Services total | 253,528 | 272,543 | 304,930 / Google Cloud | 26,280 | 33,088 | 43,229 / Other Bets | 1,068 | 1,527 | 1,648 / Hedging gains (losses) | 1,960 | 236 | 211 / Total revenues | 282,836 | 307,394 | 350,018 / No individual customer or groups of affiliated customers represented more than 10% of our revenues in 2022, 2023, or 2024. / The following table presents revenues disaggregated by geograp...
-
-3. **Alphabet Inc. | 2025 | Item 7 Management's Discussion and Analysis** | `GOOGL-2025-7-011` | distance 0.234
+2. **Alphabet Inc. | 2025 | Item 7 Management's Discussion and Analysis** | `GOOGL-2025-7-011` | distance 0.234
    > •Cost of revenues was $162.5 billion, an increase of 11% year over year, primarily driven by increases in TAC, content acquisition costs, and depreciation expense. / •Operating expenses were $111.3 billion, an increase of 22% year over year, primarily driven by increases in employee compensation expenses, expenses related to legal and other matters, and depreciation expense. / Other Information: / •In 2...
 
-4. **Alphabet Inc. | 2024 | Item 8 Financial Statements and Supplementary Data** | `GOOGL-2024-8-007` | distance 0.237
-   > Accumulated other comprehensive income (loss) | (4,402) | (4,800) / Retained earnings | 211,247 | 245,084 / Total stockholders’ equity | 283,379 | 325,084 / Total liabilities and stockholders’ equity | 402,392 | 450,256 / See accompanying notes. / Alphabet Inc. / CONSOLIDATED STATEMENTS OF INCOME / (in millions, except per share amounts) / Year Ended December 31, / 2022 | 2023 | 2024 / Revenues | 282,836 | 307,394 | ...
-
-5. **Alphabet Inc. | 2025 | Item 8 Financial Statements and Supplementary Data** | `GOOGL-2025-8-030` | distance 0.246
+3. **Alphabet Inc. | 2025 | Item 8 Financial Statements and Supplementary Data** | `GOOGL-2025-8-030` | distance 0.246
    > EMEA(1) | 91,038 | 30 | 102,127 | 29 | 117,152 | 29 / APAC(1) | 51,514 | 17 | 56,815 | 16 | 67,680 | 17 / Other Americas(1) | 18,320 | 6 | 20,418 | 6 | 23,902 | 6 / Hedging gains (losses) | 236 | 0 | 211 | 0 | (127) | 0 / Total revenues | 307,394 | 100% | 350,018 | 100% | 402,836 | 100% / (1) Regions represent Europe, the Middle East, and Africa (EMEA); Asia-Pacific (APAC); and Canada and Latin America ("Ot...
+
+4. **Alphabet Inc. | 2025 | Item 8 Financial Statements and Supplementary Data** | `GOOGL-2025-8-007` | distance 0.247
+   > Accumulated other comprehensive income (loss) | (4,800) | (1,916) / Retained earnings | 245,084 | 324,055 / Total stockholders’ equity | 325,084 | 415,265 / Total liabilities and stockholders’ equity | 450,256 | 595,281 / See accompanying notes. / Alphabet Inc. / CONSOLIDATED STATEMENTS OF INCOME / (in millions, except per share amounts) / Year Ended December 31, / 2023 | 2024 | 2025 / Revenues | 307,394 | 350,018 | ...
+
+5. **Alphabet Inc. | 2025 | Item 7 Management's Discussion and Analysis** | `GOOGL-2025-7-016` | distance 0.256
+   > Sales and marketing expenses increased $885 million from 2024 to 2025, primarily driven by an increase in advertising and promotional activities of $1.2 billion, partially offset by a decrease in employee compensation expenses of $214 million. / General and Administrative / The following table presents general and administrative expenses (in millions, except percentages): / Year Ended December 31, / 2024 ...
 
 ## Q8. Which companies describe tariffs as a risk to their business?
 

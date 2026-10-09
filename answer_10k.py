@@ -3,6 +3,7 @@
 Usage:
   python answer_10k.py "question"
   python answer_10k.py "question" --ticker F --ticker GM --year 2025 --section "Item 1A"
+  python answer_10k.py "question" --mode dense     vector search only (hybrid is the default)
 
 In code:
   from answer_10k import answer
@@ -96,11 +97,11 @@ def expand_citations(text: str, chunks: list[dict]) -> tuple[str, list[dict]]:
 
 def answer(
     question: str, k: int = K, tickers: list[str] | None = None,
-    years: list[str] | None = None, sections: list[str] | None = None,
+    years: list[str] | None = None, sections: list[str] | None = None, mode: str = "hybrid",
 ) -> dict:
-    """Answer from the filings. Filters work as in search_10k.retrieve()."""
+    """Answer from the filings. Filters and mode work as in search_10k.retrieve()."""
     filters = filters_for(question, tickers, years, sections)
-    chunks = retrieve(question, k, **filters)
+    chunks = retrieve(question, k, **filters, mode=mode)
     if not chunks:  # nothing matches the filters, e.g. a year with no filing loaded
         return {"question": question, "answer": f"{NOT_FOUND}.", "found": False,
                 "cited": [], "retrieved": [], "filters": filters}
@@ -141,8 +142,8 @@ def main() -> None:
     parser.add_argument("question")
     add_filter_args(parser)
     args = parser.parse_args()
-    result = answer(args.question, **filter_kwargs(args))
-    print(f"[{describe(result['filters'])}]\n")
+    result = answer(args.question, **filter_kwargs(args), mode=args.mode)
+    print(f"[{describe(result['filters'])} | search: {args.mode}]\n")
     print(result["answer"])
     if result["cited"]:
         print("\nSources used:")

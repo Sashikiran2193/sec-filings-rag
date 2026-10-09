@@ -96,8 +96,10 @@ Keyword search catches exact terms that vector search misses, such as "Chief
 Executive Officer" on a signature page or "rare earth". It expands a few
 abbreviations (CEO, CFO, EV, AI) and ignores years, which every filing repeats
 for the prior year. `embed_10k.py` and `ingest.py` keep the keyword index in
-step with Chroma. `retrieve(question, k, mode="dense")` runs meaning-only
-search for comparison; see `eval/hybrid_comparison.md`.
+step with Chroma. To turn hybrid off and use vector search only, pass
+`mode="dense"` to `retrieve()` or `answer()`, or `--mode dense` to
+`search_10k.py`, `answer_10k.py` or `eval_retrieval.py`. The on/off comparison
+on the ten review questions is in `eval/hybrid_comparison.md`.
 
 ### Filters
 

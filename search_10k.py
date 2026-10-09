@@ -4,6 +4,7 @@ Usage:
   python search_10k.py                                    run the three test searches
   python search_10k.py "question"                         search; filters detected from the question
   python search_10k.py "question" --ticker F --ticker GM --year 2025 --section "Item 1A"
+  python search_10k.py "question" --mode dense            vector search only (hybrid is the default)
 
 In code:
   from search_10k import retrieve
@@ -229,10 +230,10 @@ def describe(f: dict[str, list[str]]) -> str:
     return " | ".join(f"{name}: {', '.join(values) or 'all'}" for name, values in f.items())
 
 
-def search(question: str, **filters) -> None:
+def search(question: str, mode: str = "hybrid", **filters) -> None:
     f = filters_for(question, **filters)
-    print(f'\n=== "{question}"  [{describe(f)}]')
-    hits = retrieve(question, TOP_K, **f)
+    print(f'\n=== "{question}"  [{describe(f)} | search: {mode}]')
+    hits = retrieve(question, TOP_K, **f, mode=mode)
     if not hits:
         print("No chunks match these filters.")
     for rank, hit in enumerate(hits, start=1):
@@ -247,6 +248,10 @@ def add_filter_args(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--ticker", action="append", help="repeat for several, e.g. --ticker F --ticker GM")
     parser.add_argument("--year", action="append", help="fiscal year of the filing, e.g. 2025")
     parser.add_argument("--section", action="append", help='e.g. "Item 1A" or "Signature page"')
+    parser.add_argument(
+        "--mode", choices=["hybrid", "dense"], default="hybrid",
+        help="hybrid: keyword + vector search (default); dense: vector search only",
+    )
 
 
 def filter_kwargs(args: argparse.Namespace) -> dict:
@@ -262,10 +267,10 @@ def main() -> None:
     if args.ticker_arg:
         args.ticker = (args.ticker or []) + [args.ticker_arg]
     if args.question:
-        search(args.question, **filter_kwargs(args))
+        search(args.question, args.mode, **filter_kwargs(args))
     else:
         for question in TEST_SEARCHES:
-            search(question)
+            search(question, args.mode)
 
 
 if __name__ == "__main__":
