@@ -1,0 +1,67 @@
+{
+  "accuracy": {
+    "overall": {
+      "questions": 41,
+      "correct": 37,
+      "partial": 0,
+      "wrong": 4,
+      "accuracy": 90.2,
+      "accuracy_with_partial": 90.2
+    },
+    "fact": {
+      "questions": 25,
+      "correct": 21,
+      "partial": 0,
+      "wrong": 4,
+      "accuracy": 84.0,
+      "accuracy_with_partial": 84.0
+    },
+    "summary": {
+      "questions": 8,
+      "correct": 8,
+      "partial": 0,
+      "wrong": 0,
+      "accuracy": 100.0,
+      "accuracy_with_partial": 100.0
+    },
+    "comparison": {
+      "questions": 8,
+      "correct": 8,
+      "partial": 0,
+      "wrong": 0,
+      "accuracy": 100.0,
+      "accuracy_with_partial": 100.0
+    }
+  },
+  "failure_causes": {
+    "retrieval": 4
+  },
+  "citations": {
+    "answers_checked": 38,
+    "numbers_checked": 179,
+    "numbers_supported_pct": 100.0,
+    "answers_with_uncited_figures": 8,
+    "answers_with_uncited_figures_ids": [
+      "F03",
+      "F06",
+      "F15",
+      "S03",
+      "C01",
+      "C02",
+      "C07",
+      "C08"
+    ]
+  },
+  "refusals": {
+    "no_answer_questions": 6,
+    "correctly_declined": 6,
+    "correct_refusal_rate": 100.0,
+    "false_refusals": 3,
+    "false_refusal_rate": 7.3,
+    "false_refusal_ids": [
+      "F16",
+      "F18",
+      "F25"
+    ]
+  }
+}

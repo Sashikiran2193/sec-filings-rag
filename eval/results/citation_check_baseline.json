@@ -1,0 +1,337 @@
+{
+  "summary": {
+    "answers_checked": 38,
+    "claims": 237,
+    "claims_with_numbers": 101,
+    "numbers_checked": 179,
+    "numbers_supported_pct": 100.0,
+    "answers_with_no_flags": 30
+  },
+  "answers": [
+    {
+      "id": "F01",
+      "claims": 2,
+      "claims_with_numbers": 1,
+      "numbers": 1,
+      "unsupported": [],
+      "uncited_lines": []
+    },
+    {
+      "id": "F02",
+      "claims": 2,
+      "claims_with_numbers": 2,
+      "numbers": 2,
+      "unsupported": [],
+      "uncited_lines": []
+    },
+    {
+      "id": "F03",
+      "claims": 2,
+      "claims_with_numbers": 1,
+      "numbers": 3,
+      "unsupported": [],
+      "uncited_lines": [
+        "- Operations: 89,000",
+        "- Product research and development: 80,000",
+        "- Sales and marketing: 44,000",
+        "- General and administration: 15,000"
+      ]
+    },
+    {
+      "id": "F04",
+      "claims": 1,
+      "claims_with_numbers": 1,
+      "numbers": 1,
+      "unsupported": [],
+      "uncited_lines": []
+    },
+    {
+      "id": "F05",
+      "claims": 2,
+      "claims_with_numbers": 2,
+      "numbers": 3,
+      "unsupported": [],
+      "uncited_lines": []
+    },
+    {
+      "id": "F06",
+      "claims": 3,
+      "claims_with_numbers": 2,
+      "numbers": 4,
+      "unsupported": [],
+      "uncited_lines": [
+        "- Automotive & services and other: $82,056 million",
+        "- Energy generation and storage: $12,771 million"
+      ]
+    },
+    {
+      "id": "F07",
+      "claims": 1,
+      "claims_with_numbers": 1,
+      "numbers": 3,
+      "unsupported": [],
+      "uncited_lines": []
+    },
+    {
+      "id": "F08",
+      "claims": 3,
+      "claims_with_numbers": 3,
+      "numbers": 6,
+      "unsupported": [],
+      "uncited_lines": []
+    },
+    {
+      "id": "F09",
+      "claims": 4,
+      "claims_with_numbers": 4,
+      "numbers": 10,
+      "unsupported": [],
+      "uncited_lines": []
+    },
+    {
+      "id": "F10",
+      "claims": 5,
+      "claims_with_numbers": 5,
+      "numbers": 10,
+      "unsupported": [],
+      "uncited_lines": []
+    },
+    {
+      "id": "F11",
+      "claims": 3,
+      "claims_with_numbers": 3,
+      "numbers": 6,
+      "unsupported": [],
+      "uncited_lines": []
+    },
+    {
+      "id": "F12",
+      "claims": 6,
+      "claims_with_numbers": 2,
+      "numbers": 5,
+      "unsupported": [],
+      "uncited_lines": []
+    },
+    {
+      "id": "F13",
+      "claims": 5,
+      "claims_with_numbers": 3,
+      "numbers": 6,
+      "unsupported": [],
+      "uncited_lines": []
+    },
+    {
+      "id": "F14",
+      "claims": 1,
+      "claims_with_numbers": 1,
+      "numbers": 1,
+      "unsupported": [],
+      "uncited_lines": []
+    },
+    {
+      "id": "F15",
+      "claims": 3,
+      "claims_with_numbers": 3,
+      "numbers": 6,
+      "unsupported": [],
+      "uncited_lines": [
+        "These three add up to 7,772. That isn't the company total, because headcount for other functions, such as cost of revenue, isn't shown."
+      ]
+    },
+    {
+      "id": "F17",
+      "claims": 4,
+      "claims_with_numbers": 2,
+      "numbers": 2,
+      "unsupported": [],
+      "uncited_lines": []
+    },
+    {
+      "id": "F19",
+      "claims": 2,
+      "claims_with_numbers": 0,
+      "numbers": 0,
+      "unsupported": [],
+      "uncited_lines": []
+    },
+    {
+      "id": "F20",
+      "claims": 6,
+      "claims_with_numbers": 1,
+      "numbers": 1,
+      "unsupported": [],
+      "uncited_lines": []
+    },
+    {
+      "id": "F21",
+      "claims": 3,
+      "claims_with_numbers": 0,
+      "numbers": 0,
+      "unsupported": [],
+      "uncited_lines": []
+    },
+    {
+      "id": "F22",
+      "claims": 4,
+      "claims_with_numbers": 0,
+      "numbers": 0,
+      "unsupported": [],
+      "uncited_lines": []
+    },
+    {
+      "id": "F23",
+      "claims": 3,
+      "claims_with_numbers": 2,
+      "numbers": 4,
+      "unsupported": [],
+      "uncited_lines": []
+    },
+    {
+      "id": "F24",
+      "claims": 5,
+      "claims_with_numbers": 2,
+      "numbers": 3,
+      "unsupported": [],
+      "uncited_lines": []
+    },
+    {
+      "id": "S01",
+      "claims": 29,
+      "claims_with_numbers": 2,
+      "numbers": 3,
+      "unsupported": [],
+      "uncited_lines": []
+    },
+    {
+      "id": "S02",
+      "claims": 20,
+      "claims_with_numbers": 0,
+      "numbers": 0,
+      "unsupported": [],
+      "uncited_lines": []
+    },
+    {
+      "id": "S03",
+      "claims": 14,
+      "claims_with_numbers": 9,
+      "numbers": 15,
+      "unsupported": [],
+      "uncited_lines": [
+        "- $1.5 billion in equity investments, of which $0.2 billion is recognized as revenue.",
+        "- A $1.0 billion loan made available through the joint venture. It can be drawn between October 1 and October 30, 2026."
+      ]
+    },
+    {
+      "id": "S04",
+      "claims": 16,
+      "claims_with_numbers": 7,
+      "numbers": 10,
+      "unsupported": [],
+      "uncited_lines": []
+    },
+    {
+      "id": "S05",
+      "claims": 13,
+      "claims_with_numbers": 0,
+      "numbers": 0,
+      "unsupported": [],
+      "uncited_lines": []
+    },
+    {
+      "id": "S06",
+      "claims": 9,
+      "claims_with_numbers": 0,
+      "numbers": 0,
+      "unsupported": [],
+      "uncited_lines": []
+    },
+    {
+      "id": "S07",
+      "claims": 12,
+      "claims_with_numbers": 3,
+      "numbers": 4,
+      "unsupported": [],
+      "uncited_lines": []
+    },
+    {
+      "id": "S08",
+      "claims": 11,
+      "claims_with_numbers": 9,
+      "numbers": 14,
+      "unsupported": [],
+      "uncited_lines": []
+    },
+    {
+      "id": "C01",
+      "claims": 13,
+      "claims_with_numbers": 4,
+      "numbers": 6,
+      "unsupported": [],
+      "uncited_lines": [
+        "Both companies said tariffs materially hurt their 2025 results. Ford reported about $3 billion in gross tariff costs, and GM reported a $3.1 billion hit to EBIT"
+      ]
+    },
+    {
+      "id": "C02",
+      "claims": 2,
+      "claims_with_numbers": 2,
+      "numbers": 3,
+      "unsupported": [],
+      "uncited_lines": [
+        "NVIDIA has more employees, with about 11,000 more than AMD:"
+      ]
+    },
+    {
+      "id": "C03",
+      "claims": 4,
+      "claims_with_numbers": 4,
+      "numbers": 6,
+      "unsupported": [],
+      "uncited_lines": []
+    },
+    {
+      "id": "C04",
+      "claims": 3,
+      "claims_with_numbers": 2,
+      "numbers": 3,
+      "unsupported": [],
+      "uncited_lines": []
+    },
+    {
+      "id": "C05",
+      "claims": 4,
+      "claims_with_numbers": 3,
+      "numbers": 3,
+      "unsupported": [],
+      "uncited_lines": []
+    },
+    {
+      "id": "C06",
+      "claims": 8,
+      "claims_with_numbers": 8,
+      "numbers": 22,
+      "unsupported": [],
+      "uncited_lines": []
+    },
+    {
+      "id": "C07",
+      "claims": 2,
+      "claims_with_numbers": 2,
+      "numbers": 4,
+      "unsupported": [],
+      "uncited_lines": [
+        "Microsoft has more employees, about 32,000 more than Alphabet, though the two counts are taken at different dates."
+      ]
+    },
+    {
+      "id": "C08",
+      "claims": 7,
+      "claims_with_numbers": 5,
+      "numbers": 9,
+      "unsupported": [],
+      "uncited_lines": [
+        "**Microsoft Cloud grew faster: 23% in fiscal 2025, against 20% for AWS in 2025.**"
+      ]
+    }
+  ]
+}

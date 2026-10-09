@@ -13,6 +13,7 @@ In code:
   result["cited"]    # chunks the answer cites
   result["retrieved"]  # every chunk the model was given
   result["filters"]  # tickers / years / sections searched (given, or detected in the question)
+  result["raw_answer"]  # the model's text with citations as [S1], [S2] (S1 = retrieved[0])
 
 The model sees only the retrieved chunks, numbered S1, S2, ..., and cites those
 numbers; the code swaps each number for the chunk's company, year and section,
@@ -141,6 +142,9 @@ def answer(
         "cited": cited,
         "retrieved": chunks,
         "filters": filters,
+        "raw_answer": raw,  # citations as [S1], [S2]: S1 is retrieved[0], and so on
+        "model": response.model,
+        "usage": {"input_tokens": response.usage.input_tokens, "output_tokens": response.usage.output_tokens},
     }
 
 
