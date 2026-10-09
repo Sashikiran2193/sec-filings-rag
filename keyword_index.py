@@ -26,8 +26,15 @@ will with would you your about all any each every other some such tell describe
 describes say says said mention mentions list lists listed company companies firm firms business businesses
 """.split())
 YEARS = re.compile(r"\b(?:19|20)\d\d\b|\bfiscal\b|\bFY\d*\b", re.IGNORECASE)
-# Abbreviations filings spell out. Each expands to the abbreviation OR the full phrase.
-ABBREVIATIONS = {
+# Words a question may use for what filings say another way: abbreviations they
+# spell out, and synonyms for their usual term. Each word also matches its expansion.
+EXPANSIONS = {
+    "employed": "employees",
+    "employ": "employees",
+    "staff": "employees",
+    "workforce": "employees",
+    "headcount": "employees",
+    "workers": "employees",
     "ceo": "chief executive officer",
     "cfo": "chief financial officer",
     "coo": "chief operating officer",
@@ -102,8 +109,8 @@ def to_query(question: str) -> str | None:
         if word in STOPWORDS or len(word) < 2:
             continue
         terms.append(f'"{word}"')
-        if word in ABBREVIATIONS:
-            terms.append(f'"{ABBREVIATIONS[word]}"')
+        if word in EXPANSIONS:
+            terms.append(f'"{EXPANSIONS[word]}"')
     return " OR ".join(dict.fromkeys(terms)) or None
 
 
@@ -111,6 +118,13 @@ def loaded_years() -> list[str]:
     ensure()
     with connect() as db:
         return sorted(row[0] for row in db.execute("SELECT DISTINCT year FROM chunks"))
+
+
+def latest_years() -> dict[str, str]:
+    """Each company's most recent filing year loaded, e.g. {"TSLA": "2025", "NVDA": "2026"}."""
+    ensure()
+    with connect() as db:
+        return dict(db.execute("SELECT ticker, MAX(year) FROM chunks GROUP BY ticker"))
 
 
 def search(

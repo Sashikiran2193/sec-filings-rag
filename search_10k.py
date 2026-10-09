@@ -18,6 +18,8 @@ Filters (any combination; each one given overrides detection for that filter):
   filing for that fiscal year. A year with no filing loaded (e.g. 2023) uses
   the next one or two filings, which report it as a prior year.
 - Sections: detected only when the question names one ("Item 7", "signature page").
+- A question about several companies with no year uses each company's latest
+  filing, shown as "years: latest".
 
 Prints the top five chunks with their metadata and cosine distance
 (0 = same meaning; lower is closer).
@@ -42,11 +44,12 @@ from fetch_10k import TICKERS_FILE
 TOP_K = 5
 CANDIDATES = 20  # from each search, before merging
 RRF_K = 60  # standard reciprocal rank fusion constant
-MIN_PER_COMPANY = 2  # when several companies are searched, each gets at least this many
+MIN_PER_COMPANY = 3  # when several companies are searched, each gets at least this many
 # "all companies", "each company", "every company's", "which companies", "all of the companies"
 ALL_COMPANIES = re.compile(r"\b(all|each|every|which|what)\s+(of\s+the\s+)?compan(y|ies)", re.IGNORECASE)
 # "2025", "FY2025", "fiscal 2025"; not "ASU 2023-09" or "$2,025".
 YEAR = re.compile(r"(?<![\w$,-])(?:FY\s?)?((?:19|20)\d\d)(?![\w-])", re.IGNORECASE)
+LATEST = "latest"  # years filter value: each company's most recent filing
 SECTION = re.compile(r"\bitem\s+(\d{1,2}[a-c]?)\b|\b(signature page|signatures)\b", re.IGNORECASE)
 TEST_SEARCHES = [
     "What supply chain risks does Tesla describe?",
@@ -119,12 +122,24 @@ def filters_for(
     question: str, tickers: list[str] | None = None,
     years: list[str] | None = None, sections: list[str] | None = None,
 ) -> dict[str, list[str]]:
-    """The filters a search uses: those given, else those detected in the question."""
-    return {
+    """The filters a search uses: those given, else those detected in the question.
+
+    A question about several companies that names no year uses each company's
+    latest filing (years == [LATEST]), so the comparison is like for like and
+    near-identical chunks from other years don't take each company's few slots.
+    """
+    f = {
         "tickers": [t.upper() for t in tickers] if tickers is not None else companies_in(question),
         "years": [str(y) for y in years] if years is not None else years_in(question),
         "sections": sections if sections is not None else sections_in(question),
     }
+    if years is None and not f["years"] and len(f["tickers"]) > 1:
+        f["years"] = [LATEST]
+    return f
+
+
+def years_for(ticker: str, years: list[str]) -> list[str]:
+    return [keyword_index.latest_years().get(ticker, "")] if years == [LATEST] else years
 
 
 def without_companies(question: str, tickers: list[str]) -> str:
@@ -219,7 +234,7 @@ def retrieve(
         per_company = max(MIN_PER_COMPANY, -(-k // len(f["tickers"])))  # ceiling division
         hits = [
             h for t in f["tickers"]
-            for h in query(vector, question, per_company, t, f["years"], f["sections"], mode)
+            for h in query(vector, question, per_company, t, years_for(t, f["years"]), f["sections"], mode)
         ]
         return sorted(hits, key=lambda h: -h["score"] if mode == "hybrid" else h["distance"])
     ticker = f["tickers"][0] if f["tickers"] else None

@@ -63,14 +63,14 @@ Companies filter: F
 
 Companies filter: F, GM
 
-1. **Ford Motor Company | 2024 | Item 1A Risk Factors** | `F-2024-1A-023` | distance 0.221
-   > We have announced our intent to continue making multi-billion dollar investments in electrification and software services. Our plans include offering electrified versions of many of our vehicles, including the F-150 Lightning and E-Transit which we introduced in recent years. We have observed lower than initially anticipated industrywide electric vehicle adoption rates. This trend may continue, in...
-
-2. **Ford Motor Company | 2024 | Item 1A Risk Factors** | `F-2024-1A-037` | distance 0.233
-   > Electrification is our core strategy to comply with current and anticipated environmental laws and regulations in major markets. However, there are limits to our ability to reduce emissions and increase fuel economy over given time frames and many factors that could delay or impede our plans. Those factors primarily relate to the cost and effectiveness of available technologies; consumer acceptanc...
-
-3. **Ford Motor Company | 2025 | Item 1A Risk Factors** | `F-2025-1A-040` | distance 0.241
+1. **Ford Motor Company | 2025 | Item 1A Risk Factors** | `F-2025-1A-040` | distance 0.241
    > In 2025, federal legislation, which is currently subject to challenge, eliminated the authority of California and other states to implement and enforce most of their standards and ZEV sales requirements. Court rulings regarding regulatory actions by federal, California, and other state regulators create uncertainty and the potential for applicable regulatory standards to change quickly. Volatility...
+
+2. **Ford Motor Company | 2025 | Item 1A Risk Factors** | `F-2025-1A-029` | distance 0.241
+   > The trend may be further exacerbated as recent policy changes in the United States have reduced or eliminated supply- and demand-side EV incentives, which may further slow the adoption of EVs. As a result of the lower-than-anticipated adoption rates, near-term pricing pressures, and other factors, we have recorded and may continue to incur charges related to payments to our EV-related suppliers (b...
+
+3. **Ford Motor Company | 2025 | Item 1A Risk Factors** | `F-2025-1A-026` | distance 0.246
+   > Moreover, if we do not meet customer expectations for quickly and effectively addressing and remedying issues that may develop with or that improve our products and services, e.g., successfully delivering OTA updates, it would have an adverse effect on our business. / Although we recently scaled back our EV investments to redeploy that capital to other areas of the business, we intend to continue ma...
 
 4. **General Motors Company | 2025 | Item 1A Risk Factors** | `GM-2025-1A-009` | distance 0.259
    > In addition, we face risks related to the commercial deployment of AVs, including consumer acceptance, reputation of our brand, achievement of adequate safety and other performance standards, and compliance with uncertain, evolving, and potentially conflicting federal, state, provincial, or local regulations. Advanced technologies such as AVs, present novel issues with which domestic and foreign r...
@@ -78,8 +78,8 @@ Companies filter: F, GM
 5. **General Motors Company | 2025 | Item 7 Management's Discussion and Analysis** | `GM-2025-7-049` | distance 0.265
    > footprint of our operations, which expose us to a variety of unique political, economic, competitive, and regulatory risks, including the risk of changes in government leadership and laws (including labor, trade, tax, and other laws), political uncertainty or instability and economic tensions between governments and changes in international trade policies, new barriers to entry and changes to or w...
 
-6. **General Motors Company | 2024 | Item 7 Management's Discussion and Analysis** | `GM-2024-7-001` | distance 0.268
-   > Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations / This MD&A should be read in conjunction with the accompanying audited consolidated financial statements and notes. Forward-looking statements in this MD&A are not guarantees of future performance and may involve risks and uncertainties that could cause actual results to differ materially from those projec...
+6. **General Motors Company | 2025 | Item 1A Risk Factors** | `GM-2025-1A-005` | distance 0.286
+   > Consumer adoption of EVs has been slower than anticipated in light of recent U.S. Government policy changes, including the termination of certain consumer tax incentives for EV purchases. EV demand has been and, in the future could be, impacted by numerous additional factors, including the breadth of the portfolio of EVs available; perceptions about EV features, quality, safety, performance, and c...
 
 ## Q5. What does NVIDIA say about export controls on sales to China?
 
@@ -148,65 +148,98 @@ Companies filter: F, GM, TSLA, RIVN, MSFT, AMZN, GOOGL, SNOW, NVDA, AMD, AAPL
 2. **Tesla, Inc. | 2025 | Item 1A Risk Factors** | `TSLA-2025-1A-012` | distance 0.272
    > For example, we monitor tax legislation changes on a global basis, including changes arising as a result of the Organization for Economic Cooperation and Development’s multi-jurisdictional plan of action to address base erosion and profit shifting. Further, the United States has recently announced changes to U.S. trade policy, including increasing tariffs on imports, in many cases significantly, a...
 
-3. **Apple Inc. | 2024 | Item 1A Risk Factors** | `AAPL-2024-1A-003` | distance 0.273
-   > Substantially all of the Company’s manufacturing is performed in whole or in part by outsourcing partners located primarily in China mainland, India, Japan, South Korea, Taiwan and Vietnam. Restrictions on international trade, such as tariffs and other controls on imports or exports of goods, technology or data, can materially adversely affect the Company’s business and supply chain. The impact ca...
-
-4. **Apple Inc. | 2025 | Item 1A Risk Factors** | `AAPL-2025-1A-003` | distance 0.275
+3. **Apple Inc. | 2025 | Item 1A Risk Factors** | `AAPL-2025-1A-003` | distance 0.275
    > Restrictions on international trade, such as tariffs and other controls on imports or exports of goods, technology or data, can materially adversely affect the Company’s business and supply chain. The impact can be particularly significant if these restrictive measures apply to countries and regions where the Company derives a significant portion of its revenues and/or has significant supply chain...
 
-5. **Ford Motor Company | 2024 | Item 1A Risk Factors** | `F-2024-1A-020` | distance 0.279
-   > Changes in international trade policy can also have a substantial adverse effect on our financial condition, results of operations, or our business in general. Steps taken by governments to implement local content requirements or apply or consider applying additional or new tariffs on automobiles, parts, and other products and materials have the potential to disrupt existing supply chains, impose ...
-
-6. **General Motors Company | 2025 | Item 1A Risk Factors** | `GM-2025-1A-012` | distance 0.285
+4. **General Motors Company | 2025 | Item 1A Risk Factors** | `GM-2025-1A-012` | distance 0.285
    > In addition, elevated cost, or reduced availability, of critical materials for our EV propulsion systems, including lithium, nickel, cobalt, and certain rare earth metals, may lead to higher production costs for our EVs and could impede our ability to successfully deliver on our EV strategy. Further, increasing global demand for, and uncertain supply of, such materials could disrupt our or our sup...
 
-7. **Amazon.com, Inc. | 2024 | Item 1A Risk Factors** | `AMZN-2024-1A-017` | distance 0.292
-   > For example, we rely on a limited group of suppliers for semiconductor products, including products related to artificial intelligence infrastructure such as graphics processing units. Constraints on the availability of these products could adversely affect our ability to develop and operate artificial intelligence technologies, products, or services. In addition, violations by our suppliers or ot...
+5. **Apple Inc. | 2025 | Item 1A Risk Factors** | `AAPL-2025-1A-004` | distance 0.290
+   > In response, several countries have imposed, or threatened to impose, reciprocal tariffs on imports from the U.S. and other retaliatory measures. Various modifications to the U.S. Tariffs have been announced and further changes could be made in the future, which may include additional sector-based tariffs or other measures. For example, the U.S. Department of Commerce has initiated an investigatio...
 
-8. **Rivian Automotive, Inc. | 2025 | Item 1A Risk Factors** | `RIVN-2025-1A-079` | distance 0.293
+6. **Rivian Automotive, Inc. | 2025 | Item 1A Risk Factors** | `RIVN-2025-1A-079` | distance 0.293
    > For example, the United States government has announced or imposed tariffs on specific sectors and countries, which has resulted, and may continue to result, in increased costs for goods imported into the United States. In response to these tariffs, a number of United States trading partners have imposed retaliatory tariffs on certain United States products, which may make it more costly for compa...
 
-9. **Tesla, Inc. | 2024 | Item 1A Risk Factors** | `TSLA-2024-1A-010` | distance 0.293
-   > Finally, the high volumes of lithium-ion cells and battery modules and packs manufactured by us and by our suppliers are stored and recycled at our various facilities. Any mishandling of these products may cause disruption to the operation of such facilities. While we have implemented safety procedures related to the handling of the cells, there can be no assurance that a safety issue or fire rela...
-
-10. **Amazon.com, Inc. | 2025 | Item 1A Risk Factors** | `AMZN-2025-1A-017` | distance 0.293
+7. **Amazon.com, Inc. | 2025 | Item 1A Risk Factors** | `AMZN-2025-1A-017` | distance 0.293
    > For example, we rely on a limited group of suppliers for semiconductor products, including products related to artificial intelligence infrastructure such as graphics processing units. Constraints on the availability of these products could adversely affect our ability to develop and operate artificial intelligence technologies, products, or services. In addition, violations by our suppliers or ot...
 
-11. **Rivian Automotive, Inc. | 2024 | Item 1A Risk Factors** | `RIVN-2024-1A-089` | distance 0.293
-   > Our business is subject to the imposition of tariffs and other trade barriers, which may make it more costly for us to export our vehicles to the imposing country and import raw materials and product components for our vehicles. For example, in recent years the United States government has renegotiated or terminated certain existing bilateral or multi-lateral trade agreements. It has also imposed ...
-
-12. **Advanced Micro Devices, Inc. | 2025 | Item 1A Risk Factors** | `AMD-2025-1A-038` | distance 0.298
+8. **Advanced Micro Devices, Inc. | 2025 | Item 1A Risk Factors** | `AMD-2025-1A-038` | distance 0.298
    > Additionally, BIS’s announced plans introduce uncertainty as we evaluate whether specific products, technologies, or software fall within the scope of any new restrictions, and whether BIS will grant licenses in a timely matter or at all. Compliance with the planned or existing rules could result in increased costs, disruption of key customer and supplier relationships, loss of competitive positio...
 
-13. **Ford Motor Company | 2025 | Item 1A Risk Factors** | `F-2025-1A-023` | distance 0.300
+9. **Tesla, Inc. | 2025 | Item 1A Risk Factors** | `TSLA-2025-1A-011` | distance 0.299
+   > We also produce several vehicle components at our Gigafactories, such as battery modules and packs and drive units, and manufacture energy storage products. If we are unable to or otherwise do not maintain and grow our respective operations, or if we are unable to do so cost-effectively or hire and retain highly-skilled personnel there, our ability to manufacture our products profitably would be l...
+
+10. **General Motors Company | 2025 | Item 1A Risk Factors** | `GM-2025-1A-015` | distance 0.300
+   > We are engaged in many strategic business relationships, and we expect that such arrangements will continue to be an important factor in the growth and success of our business, particularly in light of industry consolidation. However, there are no assurances that we will be able to identify or / GENERAL MOTORS COMPANY AND SUBSIDIARIES / secure suitable business relationships in the future or that our ...
+
+11. **Ford Motor Company | 2025 | Item 1A Risk Factors** | `F-2025-1A-023` | distance 0.300
    > Accordingly, any delay in receiving the refunds could have a negative impact on our cash flow, and in the event we do not ultimately receive a refund, it could have an adverse impact on our financial condition or results of operations. / In addition, instability in the supply chain exacerbated by tariffs and other industry concerns, such as China’s restriction on the export of rare earth minerals an...
 
-14. **Snowflake Inc. | 2026 | Item 1A Risk Factors** | `SNOW-2026-1A-031` | distance 0.303
+12. **Snowflake Inc. | 2026 | Item 1A Risk Factors** | `SNOW-2026-1A-031` | distance 0.303
    > For example, the existing tariffs and continued threats of new or increased tariffs, sanctions, trade restrictions and trade barriers, ongoing changes in the United States and foreign government trade policies, various ongoing military conflicts and rising geopolitical tensions globally, including the ongoing military conflicts in the Middle East and between Russia and Ukraine as well as the risin...
 
-15. **Advanced Micro Devices, Inc. | 2025 | Item 1A Risk Factors** | `AMD-2025-1A-059` | distance 0.304
+13. **Advanced Micro Devices, Inc. | 2025 | Item 1A Risk Factors** | `AMD-2025-1A-059` | distance 0.304
    > Our shipping services are provided by third-party subcontractors. We also have international sales operations. International sales, as a percent of net revenue, were 67% for the year ended December 27, 2025. We expect that international sales will continue to be a significant portion of total sales in the foreseeable future. The political, legal and economic risks associated with our worldwide ope...
 
-16. **NVIDIA Corporation | 2026 | Item 1A Risk Factors** | `NVDA-2026-1A-017` | distance 0.314
+14. **Ford Motor Company | 2025 | Item 1A Risk Factors** | `F-2025-1A-021` | distance 0.304
+   > As a result of the competition for and limited availability of the raw materials needed for our electrified vehicle business, the costs of such materials are difficult to accurately forecast as they may fluctuate during the term of the offtake agreements and other long-term purchase contracts based on market conditions. Accordingly, we may be subject to increases in the prices we pay for those raw...
+
+15. **Ford Motor Company | 2025 | Item 7 Management's Discussion and Analysis** | `F-2025-7-002` | distance 0.305
+   > Tariffs, particularly on auto parts for U.S. assembly, if sustained for an extended period of time, will have a significant adverse effect on U.S. production and the overall automotive industry. / For additional information regarding the impact and potential impact of trade policy and tariffs on our business, see the Outlook section on page 74 of this Report and Item 1A. Risk Factors. / Production and...
+
+16. **Apple Inc. | 2025 | Item 7 Management's Discussion and Analysis** | `AAPL-2025-7-002` | distance 0.307
+   > Macroeconomic Conditions / Macroeconomic conditions, including inflation, interest rates and currency fluctuations, have directly and indirectly impacted, and could in the future materially impact, the Company’s results of operations and financial condition. / Tariffs and Other Measures / Beginning in the second quarter of 2025, new U.S. Tariffs were announced, including additional tariffs on imports fr...
+
+17. **NVIDIA Corporation | 2026 | Item 1A Risk Factors** | `NVDA-2026-1A-017` | distance 0.314
    > These factors could cause an unrealized or realized loss position in our investments or require us to record impairment charges. / International sales and operations are a significant part of our business, which exposes us to risks that could harm our business. / We sell our products internationally, and we also have operations and conduct business internationally. Our semiconductor wafers are manufac...
 
-17. **Alphabet Inc. | 2024 | Item 1A Risk Factors** | `GOOGL-2024-1A-009` | distance 0.322
-   > Furthermore, failure to maintain and enhance our brands could harm our business, reputation, financial condition, and operating results. Our success will depend largely on our ability to remain a technology leader and continue to provide high-quality, trustworthy, innovative products and services that are truly useful and play a valuable role in a range of settings. / We face a number of manufacturi...
+18. **Amazon.com, Inc. | 2025 | Item 1A Risk Factors** | `AMZN-2025-1A-003` | distance 0.314
+   > Failure to realize the benefits of amounts we invest in new technologies, products, or services could result in the value of those investments being written down or written off. In addition, our sustainability initiatives may be unsuccessful for a variety of reasons, including if we are unable to realize the expected benefits of new technologies or if we do not successfully plan or execute new str...
 
-18. **Microsoft Corporation | 2025 | Item 1A Risk Factors** | `MSFT-2025-1A-031` | distance 0.325
+19. **Rivian Automotive, Inc. | 2025 | Item 1A Risk Factors** | `RIVN-2025-1A-061` | distance 0.314
+   > In addition, Volkswagen Group may have investments in or otherwise hold securities of businesses that compete directly or indirectly with us, or may in the future, which could become a conflict of interest or create the appearance thereof. / Further, an employee of one of our stockholders and its affiliates serve on our board of directors and retains his position with such stockholder or its affilia...
+
+20. **Amazon.com, Inc. | 2025 | Item 1A Risk Factors** | `AMZN-2025-1A-001` | distance 0.318
+   > Item 1A. | Risk Factors / Please carefully consider the following discussion of significant factors, events, and uncertainties that make an investment in our securities risky. The events and consequences discussed in these risk factors could, in circumstances we may or may not be able to accurately predict, recognize, or control, have a material adverse effect on our business, growth, reputation, pr...
+
+21. **Rivian Automotive, Inc. | 2025 | Item 1A Risk Factors** | `RIVN-2025-1A-015` | distance 0.325
+   > We rely on vendors and suppliers to develop a number of emerging technologies for use in our products and services, including battery technology and the use of different battery cell chemistries. Certain of these technologies and chemistries are not today, and may not ever be, commercially viable. There can be no assurances that our vendors and suppliers will be able to meet the technological requ...
+
+22. **Tesla, Inc. | 2025 | Item 1A Risk Factors** | `TSLA-2025-1A-022` | distance 0.325
+   > We have been the subject of such reports in the past. / Our business may be adversely affected by any disruptions caused by union activities. / It is not uncommon for employees of certain trades at companies such as ours to belong to a union, which can result in higher employee costs and increased risk of work stoppages. Moreover, regulations in some jurisdictions outside of the U.S. mandate employee ...
+
+23. **Advanced Micro Devices, Inc. | 2025 | Item 1A Risk Factors** | `AMD-2025-1A-003` | distance 0.326
+   > •Climate change may have an impact on our business. / Legal and Regulatory Risks / •Government actions and regulations, including but not limited to export regulations, import tariffs and trade protection measures, may limit our ability to export our products to certain customers. / •If we cannot realize our deferred tax assets, our results of operations could be adversely affected. / •Our business is sub...
+
+24. **Microsoft Corporation | 2026 | Item 1A Risk Factors** | `MSFT-2026-1A-037` | distance 0.331
    > Environmental regulations or changes in the supply, demand, or available sources of energy or other resources may affect the availability or cost of goods and services, including natural resources, necessary to run our business. Changes in climate where we operate may increase the costs of powering and cooling computer hardware we use to develop software and provide cloud-based services. / Our globa...
 
-19. **NVIDIA Corporation | 2025 | Item 1A Risk Factors** | `NVDA-2025-1A-017` | distance 0.327
-   > The market in China, where our offerings are limited by export controls, is highly competitive and we expect it to remain competitive going forward. The global nature of our business subjects us to a number of risks and uncertainties, which have had in the past and could in the future have a material adverse effect on our business, financial condition and results of operations. These include domes...
+25. **Microsoft Corporation | 2026 | Item 1A Risk Factors** | `MSFT-2026-1A-028` | distance 0.333
+   > U.S. import controls restrict us from integrating certain information and communication technologies into our supply chain and allow for government review of transactions involving information and communications technology from countries determined to be foreign adversaries. Supply chain regulations may impact the availability of goods or result in additional regulatory scrutiny. Restrictions on d...
 
-20. **Microsoft Corporation | 2026 | Item 1A Risk Factors** | `MSFT-2026-1A-037` | distance 0.331
-   > Environmental regulations or changes in the supply, demand, or available sources of energy or other resources may affect the availability or cost of goods and services, including natural resources, necessary to run our business. Changes in climate where we operate may increase the costs of powering and cooling computer hardware we use to develop software and provide cloud-based services. / Our globa...
-
-21. **Snowflake Inc. | 2024 | Item 1A Risk Factors** | `SNOW-2024-1A-033` | distance 0.332
-   > •burdens of complying with laws and regulations related to taxation; and / •regulations, adverse tax burdens, and foreign exchange controls that could make it difficult or costly to repatriate earnings and cash. / We expect to invest substantial time and resources to further expand our international operations, and, if we are unable to do so successfully and in a timely manner, our business and result...
-
-22. **Alphabet Inc. | 2025 | Item 1A Risk Factors** | `GOOGL-2025-1A-010` | distance 0.334
+26. **Alphabet Inc. | 2025 | Item 1A Risk Factors** | `GOOGL-2025-1A-010` | distance 0.334
    > We rely on contract manufacturers to manufacture or assemble our devices as well as servers and networking equipment used in our technical infrastructure, certain components of which we may supply. We also rely on third parties to supply components and distribute our products and services. Our business could be harmed if we are not able to engage these companies with the necessary capabilities or ...
+
+27. **NVIDIA Corporation | 2026 | Item 1A Risk Factors** | `NVDA-2026-1A-015` | distance 0.335
+   > We may be required to reimburse our customers, partners or consumers, including for costs to repair or replace products in the field or in connection with indemnification obligations, or pay fines imposed by regulatory agencies. / In general, if a product liability claim regarding any of our products is brought against us, even if the alleged damage is due to the actions or inactions of a third part...
+
+28. **NVIDIA Corporation | 2026 | Item 1A Risk Factors** | `NVDA-2026-1A-034` | distance 0.335
+   > Revisions to laws or regulations or their interpretation and enforcement could also result in increased taxation, trade sanctions, the imposition of or increase to import duties or tariffs, restrictions and controls on imports or exports, or other retaliatory actions, which could have an adverse effect on our business plans or impact the timing of our shipments. Additionally, changes in the public...
+
+29. **Alphabet Inc. | 2025 | Item 1A Risk Factors** | `GOOGL-2025-1A-013` | distance 0.342
+   > In addition, our products and services are highly technical and complex and have contained in the past, and may contain in the future, errors or vulnerabilities, which could result in interruptions in or failure of our services or systems. Any of these incidents could impede or prevent us from effectively offering products and providing services, which could harm our business, reputation, financia...
+
+30. **Snowflake Inc. | 2026 | Item 1A Risk Factors** | `SNOW-2026-1A-042` | distance 0.344
+   > We are currently offering our platform in China to Chinese affiliates of certain multi-national customers. Under Chinese law, we must offer our platform through a Chinese-owned operating partner, which must assume control and management of certain aspects of our platform and serve as the seller of record. This has required a new operating and go-to-market model, and there is a risk that functional...
+
+31. **Microsoft Corporation | 2026 | Item 7A Quantitative and Qualitative Disclosures About Market Risk** | `MSFT-2026-7A-001` | distance 0.347
+   > ITEM 7A. QUANTITATIVE AND QUALITATIVE DISCLOSURES ABOUT MARKET RISK / RISKS / We are exposed to economic risk from foreign exchange rates, interest rates, credit risk, and equity prices. We use derivatives instruments to manage these risks, however, they may still impact our consolidated financial statements. / Foreign Currencies / Certain forecasted transactions, assets, and liabilities are exposed to fo...
+
+32. **Alphabet Inc. | 2025 | Item 1A Risk Factors** | `GOOGL-2025-1A-004` | distance 0.347
+   > We are incurring significant and increasing costs and new liabilities, including contingent liabilities, to build and maintain infrastructure to support cloud computing services, invest in cybersecurity, and hire talent. Meanwhile, our competitors are rapidly developing and deploying cloud-based services and capacity. Pricing and delivery models, which are subject to increasing regulatory scrutiny...
+
+33. **Snowflake Inc. | 2026 | Item 1A Risk Factors** | `SNOW-2026-1A-041` | distance 0.353
+   > •difficulties in managing a business in new markets with diverse cultures, languages, customs, legal systems, alternative dispute systems, and regulatory systems; / •increased travel, real estate, infrastructure, and legal compliance costs associated with international operations, including increased costs associated with changing and potentially conflicting environmental regulations and requirement...
 
 ## Q9. How does Snowflake manage cybersecurity risk and who oversees it?
 

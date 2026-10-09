@@ -10,6 +10,8 @@
 
 - **Exact terms got lost in meaning-based search:** "Who is the CEO of all companies?" named only 7 of 11 CEOs, because signature pages (a list of names and titles) don't *mean* much like the question even though they contain "Chief Executive Officer". Added keyword search (SQLite FTS5, BM25) merged with vector search by reciprocal rank fusion; all 11 are now covered. Years had to be left out of keyword queries, or "fiscal 2025" matched the FY2026 filing first. Before/after in `eval/hybrid_comparison.md`.
 
+- **"Which company employs the most people?" was incomplete and mixed years:** with 2 chunks per company from any year, near-duplicate chunks from different years filled the slots, so 5 companies' headcounts never reached the model (it then wrongly said their filings had none), and Amazon's figure was from FY2024. Multi-company questions without a year now use each company's latest filing, 3 chunks each; "employed/staff/workforce" also match "employees"; and the model now says "Not in the excerpts retrieved" for gaps rather than claiming the filing lacks them. 10 of 11 headcounts now come back (Rivian's still doesn't).
+
 ## Known issues (not fixed)
 
 - **Lowercase tickers aren't recognized:** "supply chain risk for amd" searched every company, so NVIDIA's similar risk factors filled 3 of the top 5. Ticker aliases only match in capitals, so "gm" doesn't trigger General Motors. Workaround: type `AMD`, or pass the ticker: `search_10k.py "supply chain risk" AMD`. Look for `[companies: all]` above the results.

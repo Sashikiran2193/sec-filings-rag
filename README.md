@@ -173,8 +173,9 @@ vector search in Chroma and keyword (BM25) search in `data/keywords.db`
 with reciprocal rank fusion, so a chunk that ranks well in either list rises.
 Keyword search catches exact terms that vector search misses, such as "Chief
 Executive Officer" on a signature page or "rare earth". It expands a few
-abbreviations (CEO, CFO, EV, AI) and ignores years, which every filing repeats
-for the prior year. `embed_10k.py` and `ingest.py` keep the keyword index in
+abbreviations (CEO, CFO, EV, AI) and synonyms ("employed", "staff",
+"workforce" also match "employees"), and ignores years, which every filing
+repeats for the prior year. `embed_10k.py` and `ingest.py` keep the keyword index in
 step with Chroma. To turn hybrid off and use vector search only, pass
 `mode="dense"` to `retrieve()` or `answer()`, or `--mode dense` to
 `ask.py`, `search_10k.py`, `answer_10k.py` or `eval_retrieval.py`. The on/off comparison
@@ -192,6 +193,9 @@ Any filter not given is detected from the question:
   `answer()` replies "Not found in the filings." without calling the model.
 - **Section:** only when the question names one ("Item 7", "signature page").
 - **Company:** see below.
+- **Several companies, no year:** each company's latest filing ("years:
+  latest"), so the comparison is like for like and near-identical chunks from
+  other years don't crowd out the one with the answer.
 
 ```bash
 python ask.py "What risks did Tesla list in 2025?"
@@ -204,7 +208,7 @@ only match in capitals, so a lowercase "gm" doesn't trigger a filter. Questions
 without a company name search everything.
 
 Questions about "all companies", "each company", "every company" or "which
-companies" search every company separately, so each one gets at least 2 of the
+companies" search every company separately, so each one gets at least 3 of the
 results instead of the closest few companies taking them all.
 
 Each filing's signature page (the CEO, CFO and directors who signed it) is its

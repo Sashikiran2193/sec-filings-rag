@@ -1,5 +1,11 @@
 # Hybrid search on vs. off
 
+> **Update, later on 2026-10-08:** questions about several companies with no
+> year now use each company's latest filing, with 3 chunks each. Re-running
+> both modes, the top result differs for 7 of 10 questions (Q4 and Q8 now draw
+> on latest filings only). The result files hold the new run; the table below
+> is the review of the earlier run.
+
 The ten Day 1 questions, run on 2026-10-08 with the current code (company,
 year and section filters on) in both modes:
 
