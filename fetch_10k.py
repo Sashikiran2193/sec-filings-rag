@@ -6,22 +6,39 @@ Usage:
 
 Saves to data/raw/<ticker>/<year>/<primaryDocument>. The year is the fiscal
 year from the filing's report date, not the date it was filed.
+
+The SEC requires a User-Agent with your name and email on every request. Set
+SEC_USER_AGENT in .env, e.g. SEC_USER_AGENT=Jane Doe jane@example.com
 """
 
 import json
+import os
 import sys
 import time
 import urllib.request
 from functools import cache
 from pathlib import Path
 
-HEADERS = {"User-Agent": "Sashikiran Vairavan Sashi.kiran.211993@gmail.com"}
+from dotenv import load_dotenv
+
+load_dotenv()
+
 REQUEST_DELAY = 0.2  # seconds; SEC limit is 10 requests/second
 TICKERS_FILE = Path("tickers.json")
 
 
+def headers() -> dict[str, str]:
+    user_agent = os.environ.get("SEC_USER_AGENT", "").strip()
+    if not user_agent:
+        raise RuntimeError(
+            "SEC_USER_AGENT is not set. The SEC requires your name and email on every "
+            "request: add a line like SEC_USER_AGENT=Jane Doe jane@example.com to .env"
+        )
+    return {"User-Agent": user_agent}
+
+
 def get(url: str) -> bytes:
-    req = urllib.request.Request(url, headers=HEADERS)
+    req = urllib.request.Request(url, headers=headers())
     with urllib.request.urlopen(req) as resp:
         data = resp.read()
     time.sleep(REQUEST_DELAY)

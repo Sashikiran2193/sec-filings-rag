@@ -1,60 +1,138 @@
 # sec-filings-rag
 
-Retrieval over SEC 10-K filings: download, clean, chunk, embed and search.
+Ask questions in plain English about companies' SEC 10-K annual reports and
+get answers that cite the filing sections they came from.
 
-## Pipeline
+```
+> python ask.py "How did Ford and GM describe tariff risks in 2025?"
+
+[tickers: F, GM | years: 2025 | sections: all | search: hybrid]
+
+Ford and GM both called tariffs a significant, still-evolving threat ...
+- In 2025, Ford's gross costs from tariffs ... were about $3 billion ...
+  [Ford Motor Company | FY2025 | Item 7 Management's Discussion and Analysis]
+...
+Sources:
+  - Ford Motor Company | FY2025 | Item 7 Management's Discussion and Analysis, chunk 1 (F-2025-7-001)
+  ...
+```
+
+The filings come from SEC EDGAR, search runs locally, and answers are written
+by Claude using only the retrieved excerpts. When the filings don't cover a
+question, it says "Not found in the filings." instead of guessing.
+
+## Quick start
+
+You need Python 3.11 or newer (tested on 3.14), git, and a Claude API key from
+[console.anthropic.com](https://console.anthropic.com).
+
+**1. Clone and install**
+
+```bash
+git clone https://github.com/Sashikiran2193/sec-filings-rag.git
+cd sec-filings-rag
+python -m venv .venv
+```
+
+Activate the virtual environment, then install:
+
+```bash
+.venv\Scripts\activate          # Windows (PowerShell or cmd)
+source .venv/bin/activate       # macOS / Linux
+
+pip install -r requirements.txt
+```
+
+**2. Add your settings**
+
+Copy `.env.example` to `.env` (`copy .env.example .env` on Windows,
+`cp .env.example .env` elsewhere) and fill in both lines:
+
+```
+ANTHROPIC_API_KEY=sk-ant-...
+SEC_USER_AGENT=Your Name your.email@example.com
+```
+
+The SEC requires your name and email on every download. `.env` is git-ignored,
+so neither value is committed.
+
+**3. Download and index the filings**
+
+```bash
+python ingest.py
+```
+
+This fetches every company and year in `tickers.json` from EDGAR, cleans and
+chunks them, and builds the local search index. The first run takes about 10
+minutes (it also downloads a small embedding model, about 70 MB). Filings that
+don't exist yet, such as a 10-K not filed, are reported as missing and skipped.
+To try it faster, load one filing: `python ingest.py --ticker TSLA --year 2025`.
+
+**4. Ask a question**
+
+```bash
+python ask.py "What risks did Tesla list in 2025?"
+```
+
+Each answer takes a few seconds and costs a few cents in API usage. Questions
+are logged to `logs/ask.jsonl` with the chunks retrieved, the answer and the
+time taken.
+
+### Asking good questions
+
+- **Name the company:** "Tesla", "Ford and GM", or a ticker in capitals
+  (`AMD`, `NVDA`). Lowercase tickers such as "amd" aren't recognized. "All
+  companies" or "which companies" searches every company.
+- **Name a year** to limit to that fiscal year's filing: "in 2025", "fiscal
+  2025", "FY2025".
+- **Options** override what's detected: `--ticker F --ticker GM`, `--year 2025`,
+  `--section "Item 1A"`, and `--mode dense` for vector-only search.
+
+Companies included: Ford, GM, Tesla, Rivian, Microsoft, Amazon, Alphabet,
+Snowflake, NVIDIA and AMD, fiscal years 2024 to 2026. To add one, put its
+ticker in `tickers.json` (under `tickers`, plus `names` and `aliases`) and run
+`python ingest.py --ticker XXX`.
+
+## How it works
 
 | Step | Script | Output |
 |---|---|---|
 | 1. Download 10-Ks from EDGAR | `fetch_10k.py` | `data/raw/<ticker>/<year>/*.htm` |
 | 2. Clean HTML and split by 10-K item | `parse_10k.py` | `data/clean/<ticker>/<year>/item_<n>.txt` |
 | 3. Chunk with metadata | `chunk_10k.py` | `data/chunks/chunks.jsonl` |
-| 4. Embed and load the vector store | `embed_10k.py` | `chroma/` (collection `sec_10k`) |
-| 5. Search | `search_10k.py` | prints top 5 chunks; `retrieve(question, k)` for code |
-| 6. Evaluate retrieval | `eval_retrieval.py [--mode dense]` | `eval/retrieval_results.md` (reviewed in `eval/retrieval_review.md`, `eval/hybrid_comparison.md`) |
-| 7. Answer with citations | `answer_10k.py` | answer citing company, fiscal year and section; `answer(question)` for code |
+| 4. Embed and index | `embed_10k.py`, `keyword_index.py` | `chroma/` (vectors), `data/keywords.db` (keywords) |
+| 5. Search | `search_10k.py` | top chunks; `retrieve(question, k)` for code |
+| 6. Answer with citations | `answer_10k.py` | `answer(question)` for code |
+| 7. Ask | `ask.py` | the command-line entry point |
+| Evaluate retrieval | `eval_retrieval.py [--mode dense]` | `eval/` |
 
-Answers use Claude (`claude-opus-5-5`) and need `ANTHROPIC_API_KEY` in `.env`.
-The model sees only the retrieved chunks, must cite one for every claim, and
-replies "Not found in the filings." when they don't cover the question (see
-`eval/answer_check.md`).
+`ingest.py` runs steps 1-4 for each filing. Answers use Claude
+(`claude-opus-5-5`); the model sees only the retrieved chunks, must cite one
+for every claim, and replies "Not found in the filings." when they don't cover
+the question (see `eval/answer_check.md`).
 
-Tickers and years are listed in `tickers.json`.
+### Ingest options
 
-### One command
-
-`ingest.py` runs steps 1-4 for each filing:
-
-```powershell
-pip install -r requirements.txt
+```bash
 python ingest.py --ticker TSLA --year 2025   # one filing
 python ingest.py --ticker TSLA               # every year in tickers.json
 python ingest.py                             # every ticker and year in tickers.json
 python ingest.py --force                     # rebuild filings already loaded
-python search_10k.py                         # three test searches
-python search_10k.py "question" [TICKER]     # your own search
 ```
 
-Re-runs are safe. A filing already in the vector store is skipped. With
-`--force`, its old chunks are deleted from Chroma and from `chunks.jsonl`
-before the new ones go in, so nothing is stored twice. Filings that don't
-exist yet (e.g. a 10-K not filed) are logged as missing and the run carries
-on. Each step and the chunk count per filing are logged to the screen and to
+Re-runs are safe. A filing already loaded is skipped. With `--force`, its old
+chunks are deleted from the vector store, the keyword index and
+`chunks.jsonl` before the new ones go in, so nothing is stored twice. Each step
+and the chunk count per filing are logged to the screen and to
 `logs/ingest.log`. The command exits with code 1 if any filing failed.
 
 Any ticker works, not just those in `tickers.json`. For a new ticker, add it
-to `aliases` in `tickers.json` so searches that name the company filter to it
+to `aliases` in `tickers.json` so questions that name the company filter to it
 automatically, and to `names` for a cleaner name than the SEC's.
 
-### Step by step
-
-The scripts also run on their own, over everything on disk:
-
-```powershell
-python fetch_10k.py; python parse_10k.py; python chunk_10k.py; python embed_10k.py
-```
-
-`embed_10k.py` rebuilds the whole vector store from `chunks.jsonl`.
+The scripts also run on their own over everything on disk:
+`python fetch_10k.py`, `parse_10k.py`, `chunk_10k.py`, then `embed_10k.py`,
+which rebuilds the vector store and keyword index from `chunks.jsonl`.
 
 ## EDGAR access rules
 
@@ -98,7 +176,7 @@ abbreviations (CEO, CFO, EV, AI) and ignores years, which every filing repeats
 for the prior year. `embed_10k.py` and `ingest.py` keep the keyword index in
 step with Chroma. To turn hybrid off and use vector search only, pass
 `mode="dense"` to `retrieve()` or `answer()`, or `--mode dense` to
-`search_10k.py`, `answer_10k.py` or `eval_retrieval.py`. The on/off comparison
+`ask.py`, `search_10k.py`, `answer_10k.py` or `eval_retrieval.py`. The on/off comparison
 on the ten review questions is in `eval/hybrid_comparison.md`.
 
 ### Filters
@@ -114,8 +192,8 @@ Any filter not given is detected from the question:
 - **Section:** only when the question names one ("Item 7", "signature page").
 - **Company:** see below.
 
-```powershell
-python answer_10k.py "What risks did Tesla list in 2025?"
+```bash
+python ask.py "What risks did Tesla list in 2025?"
 python search_10k.py "tariff risks" --ticker F --ticker GM --year 2025 --section "Item 1A"
 ```
 
