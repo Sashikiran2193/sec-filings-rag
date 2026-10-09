@@ -156,7 +156,10 @@ page (checked 2026-10-08):
 - **Max input:** 512 tokens. Chunks are sized with this model's own tokenizer
   to at most 480 tokens (target 380, 50-token overlap), leaving room for the
   header below, so nothing is cut off. This is smaller than the original
-  500-800 token plan, which would not fit.
+  500-800 token plan, which would not fit. A chunk also ends at a sub-heading
+  ("Human Capital", "Reportable Segments") once it has 100 tokens, so short
+  sections aren't buried in the previous topic (experiment 1 in
+  `eval/results/EXPERIMENTS.md`).
 - **Header:** each chunk is embedded as
   `<company> | FY<year> 10-K | <section> <title>` + the chunk text, because
   filings say "we" rather than the company's name. The stored text has no header.

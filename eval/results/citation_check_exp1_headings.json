@@ -1,11 +1,11 @@
 {
   "summary": {
-    "answers_checked": 38,
-    "claims": 237,
-    "claims_with_numbers": 98,
-    "numbers_checked": 172,
-    "numbers_supported_pct": 100.0,
-    "answers_with_no_flags": 30
+    "answers_checked": 42,
+    "claims": 242,
+    "claims_with_numbers": 92,
+    "numbers_checked": 175,
+    "numbers_supported_pct": 99.4,
+    "answers_with_no_flags": 34
   },
   "answers": [
     {
@@ -18,24 +18,19 @@
     },
     {
       "id": "F02",
-      "claims": 2,
-      "claims_with_numbers": 2,
-      "numbers": 2,
+      "claims": 1,
+      "claims_with_numbers": 1,
+      "numbers": 1,
       "unsupported": [],
       "uncited_lines": []
     },
     {
       "id": "F03",
-      "claims": 2,
+      "claims": 1,
       "claims_with_numbers": 1,
       "numbers": 3,
       "unsupported": [],
-      "uncited_lines": [
-        "- Operations: 89,000",
-        "- Product research and development: 80,000",
-        "- Sales and marketing: 44,000",
-        "- General and administration: 15,000"
-      ]
+      "uncited_lines": []
     },
     {
       "id": "F04",
@@ -47,52 +42,56 @@
     },
     {
       "id": "F05",
-      "claims": 2,
-      "claims_with_numbers": 2,
-      "numbers": 3,
+      "claims": 1,
+      "claims_with_numbers": 1,
+      "numbers": 2,
       "unsupported": [],
       "uncited_lines": []
     },
     {
       "id": "F06",
-      "claims": 3,
+      "claims": 2,
       "claims_with_numbers": 2,
       "numbers": 4,
       "unsupported": [],
-      "uncited_lines": [
-        "- Automotive & services and other: $82,056 million",
-        "- Energy generation and storage: $12,771 million"
-      ]
+      "uncited_lines": []
     },
     {
       "id": "F07",
-      "claims": 1,
-      "claims_with_numbers": 1,
-      "numbers": 3,
+      "claims": 2,
+      "claims_with_numbers": 2,
+      "numbers": 5,
       "unsupported": [],
       "uncited_lines": []
     },
     {
       "id": "F08",
       "claims": 3,
-      "claims_with_numbers": 3,
-      "numbers": 6,
+      "claims_with_numbers": 1,
+      "numbers": 4,
       "unsupported": [],
-      "uncited_lines": []
+      "uncited_lines": [
+        "- **Compute & Networking:** $193,479 million, up 67%.",
+        "- **Graphics:** $22,459 million, up 57%."
+      ]
     },
     {
       "id": "F09",
-      "claims": 4,
-      "claims_with_numbers": 4,
-      "numbers": 10,
+      "claims": 3,
+      "claims_with_numbers": 1,
+      "numbers": 4,
       "unsupported": [],
-      "uncited_lines": []
+      "uncited_lines": [
+        "- Data Center: $16,635 million",
+        "- Client and Gaming: $14,550 million",
+        "- Embedded: $3,454 million"
+      ]
     },
     {
       "id": "F10",
       "claims": 5,
       "claims_with_numbers": 5,
-      "numbers": 10,
+      "numbers": 13,
       "unsupported": [],
       "uncited_lines": []
     },
@@ -106,8 +105,8 @@
     },
     {
       "id": "F12",
-      "claims": 6,
-      "claims_with_numbers": 2,
+      "claims": 7,
+      "claims_with_numbers": 3,
       "numbers": 5,
       "unsupported": [],
       "uncited_lines": []
@@ -116,7 +115,7 @@
       "id": "F13",
       "claims": 5,
       "claims_with_numbers": 3,
-      "numbers": 6,
+      "numbers": 8,
       "unsupported": [],
       "uncited_lines": []
     },
@@ -130,17 +129,23 @@
     },
     {
       "id": "F15",
-      "claims": 3,
-      "claims_with_numbers": 3,
-      "numbers": 6,
+      "claims": 1,
+      "claims_with_numbers": 1,
+      "numbers": 2,
       "unsupported": [],
-      "uncited_lines": [
-        "These three add up to 7,772. That isn't the company total, because headcount for other functions, such as cost of revenue, isn't shown."
-      ]
+      "uncited_lines": []
+    },
+    {
+      "id": "F16",
+      "claims": 1,
+      "claims_with_numbers": 1,
+      "numbers": 1,
+      "unsupported": [],
+      "uncited_lines": []
     },
     {
       "id": "F17",
-      "claims": 4,
+      "claims": 3,
       "claims_with_numbers": 1,
       "numbers": 1,
       "unsupported": [],
@@ -148,7 +153,7 @@
     },
     {
       "id": "F19",
-      "claims": 2,
+      "claims": 1,
       "claims_with_numbers": 0,
       "numbers": 0,
       "unsupported": [],
@@ -156,7 +161,7 @@
     },
     {
       "id": "F20",
-      "claims": 6,
+      "claims": 3,
       "claims_with_numbers": 1,
       "numbers": 1,
       "unsupported": [],
@@ -164,7 +169,7 @@
     },
     {
       "id": "F21",
-      "claims": 3,
+      "claims": 4,
       "claims_with_numbers": 0,
       "numbers": 0,
       "unsupported": [],
@@ -172,7 +177,7 @@
     },
     {
       "id": "F22",
-      "claims": 4,
+      "claims": 3,
       "claims_with_numbers": 0,
       "numbers": 0,
       "unsupported": [],
@@ -181,65 +186,75 @@
     {
       "id": "F23",
       "claims": 3,
-      "claims_with_numbers": 2,
+      "claims_with_numbers": 3,
       "numbers": 4,
       "unsupported": [],
       "uncited_lines": []
     },
     {
       "id": "F24",
-      "claims": 5,
-      "claims_with_numbers": 2,
-      "numbers": 3,
-      "unsupported": [],
-      "uncited_lines": []
-    },
-    {
-      "id": "S01",
-      "claims": 29,
+      "claims": 4,
       "claims_with_numbers": 1,
       "numbers": 1,
       "unsupported": [],
       "uncited_lines": []
     },
     {
-      "id": "S02",
-      "claims": 20,
+      "id": "F25",
+      "claims": 1,
+      "claims_with_numbers": 1,
+      "numbers": 1,
+      "unsupported": [],
+      "uncited_lines": []
+    },
+    {
+      "id": "S01",
+      "claims": 27,
       "claims_with_numbers": 0,
       "numbers": 0,
+      "unsupported": [],
+      "uncited_lines": []
+    },
+    {
+      "id": "S02",
+      "claims": 28,
+      "claims_with_numbers": 2,
+      "numbers": 2,
       "unsupported": [],
       "uncited_lines": []
     },
     {
       "id": "S03",
-      "claims": 14,
-      "claims_with_numbers": 9,
-      "numbers": 14,
-      "unsupported": [],
-      "uncited_lines": [
-        "- $1.5 billion in equity investments, of which $0.2 billion is recognized as revenue.",
-        "- A $1.0 billion loan made available through the joint venture. It can be drawn between October 1 and October 30, 2026."
-      ]
-    },
-    {
-      "id": "S04",
       "claims": 16,
-      "claims_with_numbers": 7,
-      "numbers": 9,
+      "claims_with_numbers": 8,
+      "numbers": 15,
       "unsupported": [],
       "uncited_lines": []
     },
     {
+      "id": "S04",
+      "claims": 15,
+      "claims_with_numbers": 4,
+      "numbers": 6,
+      "unsupported": [],
+      "uncited_lines": [
+        "- $8.1 billion Model e long-lived asset impairment",
+        "- $1.1 billion of asset write-downs",
+        "- $1.2 billion of other charges, mainly contractual commitments",
+        "- $0.2 billion full impairment of Model e goodwill"
+      ]
+    },
+    {
       "id": "S05",
-      "claims": 13,
-      "claims_with_numbers": 0,
-      "numbers": 0,
+      "claims": 16,
+      "claims_with_numbers": 1,
+      "numbers": 1,
       "unsupported": [],
       "uncited_lines": []
     },
     {
       "id": "S06",
-      "claims": 9,
+      "claims": 8,
       "claims_with_numbers": 0,
       "numbers": 0,
       "unsupported": [],
@@ -248,28 +263,34 @@
     {
       "id": "S07",
       "claims": 12,
-      "claims_with_numbers": 2,
-      "numbers": 3,
+      "claims_with_numbers": 1,
+      "numbers": 2,
       "unsupported": [],
       "uncited_lines": []
     },
     {
       "id": "S08",
-      "claims": 11,
-      "claims_with_numbers": 9,
-      "numbers": 14,
+      "claims": 6,
+      "claims_with_numbers": 5,
+      "numbers": 12,
       "unsupported": [],
-      "uncited_lines": []
+      "uncited_lines": [
+        "- **Azure and other cloud services revenue:** up 41%",
+        "- **Microsoft 365 Consumer cloud revenue:** up 28%",
+        "- **Dynamics 365 revenue:** up 18%",
+        "- **Microsoft 365 Commercial cloud revenue:** up 17%",
+        "- **Search advertising revenue excluding traffic acquisition costs:** up 12% (this line was formerly called Search and news advertising)",
+        "- **LinkedIn revenue:** up 11%",
+        "- **XBOX content and services revenue:** down 5%"
+      ]
     },
     {
       "id": "C01",
-      "claims": 13,
-      "claims_with_numbers": 4,
-      "numbers": 6,
+      "claims": 17,
+      "claims_with_numbers": 6,
+      "numbers": 8,
       "unsupported": [],
-      "uncited_lines": [
-        "Both companies said tariffs materially hurt their 2025 results. Ford reported about $3 billion in gross tariff costs, and GM reported a $3.1 billion hit to EBIT"
-      ]
+      "uncited_lines": []
     },
     {
       "id": "C02",
@@ -278,15 +299,23 @@
       "numbers": 3,
       "unsupported": [],
       "uncited_lines": [
-        "NVIDIA has more employees, with about 11,000 more than AMD:"
+        "**NVIDIA has more employees**, about 11,000 more than AMD:"
       ]
     },
     {
       "id": "C03",
-      "claims": 4,
-      "claims_with_numbers": 4,
-      "numbers": 6,
-      "unsupported": [],
+      "claims": 3,
+      "claims_with_numbers": 3,
+      "numbers": 7,
+      "unsupported": [
+        {
+          "number": "156,000",
+          "cites": [
+            "S4"
+          ],
+          "claim": "GM:** about 156,000 employees, made up of about 88,000 hourly (56%) and about 68,000 salaried (44%) employees"
+        }
+      ],
       "uncited_lines": []
     },
     {
@@ -300,38 +329,54 @@
     {
       "id": "C05",
       "claims": 4,
-      "claims_with_numbers": 3,
-      "numbers": 3,
+      "claims_with_numbers": 4,
+      "numbers": 4,
       "unsupported": [],
-      "uncited_lines": []
+      "uncited_lines": [
+        "**Apple had higher revenue.** Its fiscal 2025 total net sales were about $416.2 billion, nearly twice NVIDIA's."
+      ]
     },
     {
       "id": "C06",
       "claims": 8,
       "claims_with_numbers": 8,
-      "numbers": 22,
+      "numbers": 25,
       "unsupported": [],
       "uncited_lines": []
     },
     {
       "id": "C07",
-      "claims": 2,
+      "claims": 4,
       "claims_with_numbers": 2,
-      "numbers": 4,
+      "numbers": 2,
       "unsupported": [],
       "uncited_lines": [
-        "Microsoft has more employees, about 32,000 more than Alphabet, though the two counts are taken at different dates."
+        "**Microsoft has more employees: about 32,000 more than Alphabet.**"
       ]
     },
     {
       "id": "C08",
-      "claims": 7,
-      "claims_with_numbers": 5,
-      "numbers": 9,
+      "claims": 8,
+      "claims_with_numbers": 7,
+      "numbers": 14,
       "unsupported": [],
-      "uncited_lines": [
-        "**Microsoft Cloud grew faster: 23% in fiscal 2025, against 20% for AWS in 2025.**"
-      ]
+      "uncited_lines": []
+    },
+    {
+      "id": "N02",
+      "claims": 2,
+      "claims_with_numbers": 2,
+      "numbers": 3,
+      "unsupported": [],
+      "uncited_lines": []
+    },
+    {
+      "id": "N06",
+      "claims": 2,
+      "claims_with_numbers": 0,
+      "numbers": 0,
+      "unsupported": [],
+      "uncited_lines": []
     }
   ]
 }

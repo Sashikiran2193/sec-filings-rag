@@ -34,6 +34,9 @@ TARGET_TOKENS = 380  # aim for 300-480
 MAX_TOKENS = 480
 OVERLAP_TOKENS = 50  # repeated from the end of the previous chunk
 MIN_TOKENS = 100  # a smaller last chunk is merged into the one before it, if it fits
+HEADING_BREAK_MIN = 100  # end a chunk at a sub-heading once it has this many new tokens (= MIN_TOKENS)
+HEADING = re.compile(r"^[A-Z][^|]{1,70}$")
+NOT_HEADINGS = {"total", "totals"}  # table labels that look like headings
 
 SECTION_TITLES = {
     "1": "Business", "1a": "Risk Factors", "1b": "Unresolved Staff Comments",
@@ -98,6 +101,22 @@ def split_units(text: str) -> list[tuple[str, int]]:
     return [(u, len(c.ids)) for u, c in zip(units, counts)]
 
 
+def is_heading(line: str) -> bool:
+    """A sub-heading line such as "Human Capital" or "Reportable Segments".
+
+    Short, starts with a capital, no ending punctuation, not a table row.
+    """
+    line = line.strip()
+    return bool(
+        HEADING.match(line)
+        and len(line.split()) <= 8
+        and not line.endswith((".", ":", ";", ",", "?", ")", "”", '"'))
+        and not line.upper().startswith(("ITEM ", "PART "))
+        and line.lower() not in NOT_HEADINGS
+        and not re.fullmatch(r"[\d\s$%(),.\-—]+", line)
+    )
+
+
 def overlap_tail(units: list[tuple[str, int]]) -> list[tuple[str, int]]:
     """The last few sentences of a chunk, up to OVERLAP_TOKENS, to repeat in the next."""
     tail: list[tuple[str, int]] = []
@@ -109,24 +128,40 @@ def overlap_tail(units: list[tuple[str, int]]) -> list[tuple[str, int]]:
 
 
 def chunk_text(text: str) -> list[str]:
+    """Pack sentences into chunks of about TARGET_TOKENS.
+
+    A chunk also ends at a sub-heading once it has HEADING_BREAK_MIN tokens, so a
+    short section such as "Human Capital" starts its own chunk instead of being
+    tacked onto the end of the previous topic, where its meaning gets diluted.
+    No overlap is carried across a heading, since the topic changes there.
+    """
     chunks: list[list[tuple[str, int]]] = []
     current: list[tuple[str, int]] = []
     size = 0
     repeated = 0  # how many units at the start of `current` are overlap
+    starts_at_heading = False  # whether `current` began at a sub-heading
+    line_start = True  # the next unit begins a new line
     for unit in split_units(text):
-        if current and (size >= TARGET_TOKENS or size + unit[1] > MAX_TOKENS):
+        heading = line_start and unit[0].endswith("\n") and is_heading(unit[0])
+        line_start = unit[0].endswith("\n")
+        if heading and size - sum(n for _, n in current[:repeated]) >= HEADING_BREAK_MIN:
+            chunks.append(current)
+            current, size, repeated, starts_at_heading = [], 0, 0, True
+        elif current and (size >= TARGET_TOKENS or size + unit[1] > MAX_TOKENS):
             chunks.append(current)
             current = overlap_tail(current)
             size = sum(n for _, n in current)
             if size + unit[1] > MAX_TOKENS:  # no room for overlap before a long sentence
                 current, size = [], 0
             repeated = len(current)
+            starts_at_heading = False
         current.append(unit)
         size += unit[1]
 
     new_part = current[repeated:]
     new_size = sum(n for _, n in new_part)
-    if chunks and new_size < MIN_TOKENS and sum(n for _, n in chunks[-1]) + new_size <= MAX_TOKENS:
+    if (chunks and not starts_at_heading and new_size < MIN_TOKENS
+            and sum(n for _, n in chunks[-1]) + new_size <= MAX_TOKENS):
         chunks[-1] += new_part  # fold a short tail into the previous chunk
     elif new_part:
         chunks.append(current)

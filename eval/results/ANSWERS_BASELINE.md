@@ -8,7 +8,7 @@ about $1.45.
 | Measure | Baseline |
 |---|---|
 | **Answer accuracy** (correct, of 41 answerable) | **90.2%** (37) |
-| **Citation correctness** (numbers in cited claims found in the cited chunk) | **100%** (179 of 179) |
+| **Citation correctness** (numbers in cited claims found in the cited chunk) | **100%** (172 of 172) |
 | **Correct refusals** (no-answer questions declined) | **100%** (6 of 6) |
 | False refusals (answerable questions declined) | 7.3% (3 of 41) |
 | Answers with figures on uncited lines | 8 of 38 answered |
@@ -43,8 +43,9 @@ the chunk wasn't there, the model declined or said what was missing.
   missing or a minor error; wrong = the answer is missing or incorrect.
 - **Citations** (`citation_check_baseline.json`, from
   `eval/check_citations.py`): every number in a cited claim was matched against
-  the chunks that claim cites, allowing unit changes and rounding. All 179
-  matched. Claims without numbers were spot-checked by hand (12 checked, such
+  the chunks that claim cites, allowing unit changes and rounding. All 172
+  matched. (First reported as 179 of 179; a checker fix stopped counting the
+  day in dates such as "October 1", which removed 7 non-figures.) Claims without numbers were spot-checked by hand (12 checked, such
   as Huang's biography, Ford's Saarlouis plant and AWS's 18% share of net
   sales); all were in the cited chunks.
 - **Uncited figures:** 8 answers have figures on lines without their own

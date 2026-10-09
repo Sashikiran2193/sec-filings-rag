@@ -37,7 +37,7 @@ def numbers(text: str, from_answer: bool) -> list[tuple[str, float, float]]:
     Skips years, "10-K" and the day in dates like 'December 31'. The allowance is
     half the last written digit, so "$2.9 billion" matches 2,863 (million).
     """
-    text = re.sub(rf"{MONTHS}\s+\d{{1,2}}", " ", text)
+    text = re.sub(rf"{MONTHS}\s+\d{{1,2}}(?!\d)", " ", text)  # "October 1", not the "20" of "October 2026"
     out = []
     for m in NUMBER.finditer(text):
         digits, unit = m.group(1), (m.group(2) or "").strip().lower()

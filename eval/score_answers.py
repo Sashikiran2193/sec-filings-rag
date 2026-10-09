@@ -11,8 +11,9 @@ wrong | correct_refusal | wrong_answer_to_no_answer) and citation_check_<name>.j
                     in "accuracy_with_partial")
   citations         numbers in cited claims found in the cited chunks; answers
                     with figures on uncited lines
-  refusals          no-answer questions declined (correct refusals), and
-                    answerable questions declined (false refusals)
+  refusals          no-answer questions graded correct_refusal (declined, in any
+                    wording), how many used the exact "Not found in the filings."
+                    form, and answerable questions declined (false refusals)
 """
 
 import json
@@ -62,8 +63,11 @@ def main() -> int:
         },
         "refusals": {
             "no_answer_questions": len(no_answer),
-            "correctly_declined": sum(answers[g["id"]]["declined"] for g in no_answer),
-            "correct_refusal_rate": pct(sum(answers[g["id"]]["declined"] for g in no_answer), len(no_answer)),
+            # graded: declined to answer (didn't make one up), whatever the wording
+            "correctly_declined": sum(g["grade"] == "correct_refusal" for g in no_answer),
+            "correct_refusal_rate": pct(sum(g["grade"] == "correct_refusal" for g in no_answer), len(no_answer)),
+            # strict: replied exactly "Not found in the filings."
+            "declined_in_exact_form": sum(answers[g["id"]]["declined"] for g in no_answer),
             "false_refusals": len(false_refusals),
             "false_refusal_rate": pct(len(false_refusals), len(answerable)),
             "false_refusal_ids": false_refusals,

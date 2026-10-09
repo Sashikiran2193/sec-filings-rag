@@ -1,0 +1,1026 @@
+{
+  "run": {
+    "time": "2026-10-09T21:34:28+00:00",
+    "commit": "b6e9a5f",
+    "mode": "hybrid",
+    "k": 8,
+    "questions_file": "eval\\questions.jsonl",
+    "seconds": 1.7
+  },
+  "summary": {
+    "overall": {
+      "questions": 41,
+      "hit": 97.6,
+      "hit_year": 97.6,
+      "hit_all": 97.6,
+      "quote_found": 95.1
+    },
+    "by_type": {
+      "fact": {
+        "questions": 25,
+        "hit": 96.0,
+        "hit_year": 96.0,
+        "hit_all": 96.0,
+        "quote_found": 96.0
+      },
+      "summary": {
+        "questions": 8,
+        "hit": 100.0,
+        "hit_year": 100.0,
+        "hit_all": 100.0,
+        "quote_found": 87.5
+      },
+      "comparison": {
+        "questions": 8,
+        "hit": 100.0,
+        "hit_year": 100.0,
+        "hit_all": 100.0,
+        "quote_found": 100.0
+      }
+    }
+  },
+  "misses": [
+    "F18"
+  ],
+  "questions": [
+    {
+      "id": "F01",
+      "type": "fact",
+      "question": "How many employees did Amazon have at the end of 2025?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "AMZN 2025 Item 1"
+      ],
+      "retrieved": [
+        "AMZN-2025-1-008 (Item 1)",
+        "AMZN-2025-7-030 (Item 7)",
+        "AMZN-2025-15-004 (Item 15)",
+        "AMZN-2025-8-014 (Item 8)",
+        "AMZN-2025-7-022 (Item 7)",
+        "AMZN-2025-2-001 (Item 2)",
+        "AMZN-2025-1A-001 (Item 1A)",
+        "AMZN-2025-7-031 (Item 7)"
+      ]
+    },
+    {
+      "id": "F02",
+      "type": "fact",
+      "question": "How many employees did AMD have at the end of 2024?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "AMD 2024 Item 1"
+      ],
+      "retrieved": [
+        "AMD-2024-1-034 (Item 1)",
+        "AMD-2024-15-007 (Item 15)",
+        "AMD-2024-1-037 (Item 1)",
+        "AMD-2024-8-011 (Item 8)",
+        "AMD-2024-8-005 (Item 8)",
+        "AMD-2024-1-041 (Item 1)",
+        "AMD-2024-1A-049 (Item 1A)",
+        "AMD-2024-15-003 (Item 15)"
+      ]
+    },
+    {
+      "id": "F03",
+      "type": "fact",
+      "question": "How many full-time employees did Microsoft have at the end of fiscal 2025?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "MSFT 2025 Item 1"
+      ],
+      "retrieved": [
+        "MSFT-2025-1-022 (Item 1)",
+        "MSFT-2025-8-075 (Item 8)",
+        "MSFT-2025-1-003 (Item 1)",
+        "MSFT-2025-8-100 (Item 8)",
+        "MSFT-2025-1A-004 (Item 1A)",
+        "MSFT-2025-8-098 (Item 8)",
+        "MSFT-2025-1A-011 (Item 1A)",
+        "MSFT-2025-8-101 (Item 8)"
+      ]
+    },
+    {
+      "id": "F04",
+      "type": "fact",
+      "question": "How many employees did Alphabet have at the end of 2025?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "GOOGL 2025 Item 1"
+      ],
+      "retrieved": [
+        "GOOGL-2025-7-017 (Item 7)",
+        "GOOGL-2025-1-012 (Item 1)",
+        "GOOGL-2025-7-024 (Item 7)",
+        "GOOGL-2025-8-117 (Item 8)",
+        "GOOGL-2025-SIGNATURES-002 (Signature page)",
+        "GOOGL-2025-SIGNATURES-003 (Signature page)",
+        "GOOGL-2025-7-025 (Item 7)",
+        "GOOGL-2025-SIGNATURES-004 (Signature page)"
+      ]
+    },
+    {
+      "id": "F05",
+      "type": "fact",
+      "question": "What was Alphabet's total revenue in 2025?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "GOOGL 2025 Item 8"
+      ],
+      "retrieved": [
+        "GOOGL-2025-7-018 (Item 7)",
+        "GOOGL-2025-8-043 (Item 8)",
+        "GOOGL-2025-8-045 (Item 8)",
+        "GOOGL-2025-8-010 (Item 8)",
+        "GOOGL-2025-8-044 (Item 8)",
+        "GOOGL-2025-8-117 (Item 8)",
+        "GOOGL-2025-7-022 (Item 7)",
+        "GOOGL-2025-7-017 (Item 7)"
+      ]
+    },
+    {
+      "id": "F06",
+      "type": "fact",
+      "question": "What were Tesla's total revenues in 2025?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "TSLA 2025 Item 7"
+      ],
+      "retrieved": [
+        "TSLA-2025-8-011 (Item 8)",
+        "TSLA-2025-7-022 (Item 7)",
+        "TSLA-2025-7-019 (Item 7)",
+        "TSLA-2025-8-012 (Item 8)",
+        "TSLA-2025-7-024 (Item 7)",
+        "TSLA-2025-8-130 (Item 8)",
+        "TSLA-2025-7-023 (Item 7)",
+        "TSLA-2025-7-003 (Item 7)"
+      ]
+    },
+    {
+      "id": "F07",
+      "type": "fact",
+      "question": "What were Apple's total net sales in fiscal 2025?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "AAPL 2025 Item 7"
+      ],
+      "retrieved": [
+        "AAPL-2025-8-048 (Item 8)",
+        "AAPL-2025-8-016 (Item 8)",
+        "AAPL-2025-7-007 (Item 7)",
+        "AAPL-2025-7-011 (Item 7)",
+        "AAPL-2025-8-047 (Item 8)",
+        "AAPL-2025-7-008 (Item 7)",
+        "AAPL-2025-7-005 (Item 7)",
+        "AAPL-2025-8-002 (Item 8)"
+      ]
+    },
+    {
+      "id": "F08",
+      "type": "fact",
+      "question": "What was NVIDIA's revenue for fiscal 2026?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "NVDA 2026 Item 7"
+      ],
+      "retrieved": [
+        "NVDA-2026-15-059 (Item 15)",
+        "NVDA-2026-7-005 (Item 7)",
+        "NVDA-2026-15-057 (Item 15)",
+        "NVDA-2026-7-014 (Item 7)",
+        "NVDA-2026-15-087 (Item 15)",
+        "NVDA-2026-7-016 (Item 7)",
+        "NVDA-2026-15-084 (Item 15)",
+        "NVDA-2026-15-058 (Item 15)"
+      ]
+    },
+    {
+      "id": "F09",
+      "type": "fact",
+      "question": "What was AMD's net revenue in 2025?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "AMD 2025 Item 7"
+      ],
+      "retrieved": [
+        "AMD-2025-7-003 (Item 7)",
+        "AMD-2025-7-016 (Item 7)",
+        "AMD-2025-7-015 (Item 7)",
+        "AMD-2025-7-018 (Item 7)",
+        "AMD-2025-7-014 (Item 7)",
+        "AMD-2025-8-038 (Item 8)",
+        "AMD-2025-7-017 (Item 7)",
+        "AMD-2025-8-036 (Item 8)"
+      ]
+    },
+    {
+      "id": "F10",
+      "type": "fact",
+      "question": "How much did Microsoft's Intelligent Cloud revenue grow in fiscal 2025?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "MSFT 2025 Item 7"
+      ],
+      "retrieved": [
+        "MSFT-2025-7-011 (Item 7)",
+        "MSFT-2025-7-015 (Item 7)",
+        "MSFT-2025-7-002 (Item 7)",
+        "MSFT-2025-7-012 (Item 7)",
+        "MSFT-2025-1-005 (Item 1)",
+        "MSFT-2025-7-009 (Item 7)",
+        "MSFT-2025-8-098 (Item 8)",
+        "MSFT-2025-8-074 (Item 8)"
+      ]
+    },
+    {
+      "id": "F11",
+      "type": "fact",
+      "question": "What was Microsoft Cloud revenue in fiscal 2026?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "MSFT 2026 Item 7"
+      ],
+      "retrieved": [
+        "MSFT-2026-7-002 (Item 7)",
+        "MSFT-2026-7-012 (Item 7)",
+        "MSFT-2026-7-015 (Item 7)",
+        "MSFT-2026-7-016 (Item 7)",
+        "MSFT-2026-8-100 (Item 8)",
+        "MSFT-2026-7-013 (Item 7)",
+        "MSFT-2026-8-075 (Item 8)",
+        "MSFT-2026-7-032 (Item 7)"
+      ]
+    },
+    {
+      "id": "F12",
+      "type": "fact",
+      "question": "What restructuring charges did Ford record in Europe in 2025?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "F 2025 Item 7"
+      ],
+      "retrieved": [
+        "F-2025-8-166 (Item 8)",
+        "F-2025-8-196 (Item 8)",
+        "F-2025-7-012 (Item 7)",
+        "F-2025-7-013 (Item 7)",
+        "F-2025-8-165 (Item 8)",
+        "F-2025-1A-013 (Item 1A)",
+        "F-2025-7-033 (Item 7)",
+        "F-2025-8-089 (Item 8)"
+      ]
+    },
+    {
+      "id": "F13",
+      "type": "fact",
+      "question": "How much did tariffs reduce GM's EBIT-adjusted in 2025, and what does GM expect for 2026?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "GM 2025 Item 7"
+      ],
+      "retrieved": [
+        "GM-2025-7-005 (Item 7)",
+        "GM-2025-7-002 (Item 7)",
+        "GM-2025-7-018 (Item 7)",
+        "GM-2025-7-016 (Item 7)",
+        "GM-2025-1A-014 (Item 1A)",
+        "GM-2025-7-004 (Item 7)",
+        "GM-2025-7-017 (Item 7)",
+        "GM-2025-7-015 (Item 7)"
+      ]
+    },
+    {
+      "id": "F14",
+      "type": "fact",
+      "question": "What was Tesla's worldwide employee headcount at the end of 2025?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "TSLA 2025 Item 1"
+      ],
+      "retrieved": [
+        "TSLA-2025-1-032 (Item 1)",
+        "TSLA-2025-7-028 (Item 7)",
+        "TSLA-2025-8-131 (Item 8)",
+        "TSLA-2025-1-033 (Item 1)",
+        "TSLA-2025-8-006 (Item 8)",
+        "TSLA-2025-7-003 (Item 7)",
+        "TSLA-2025-8-065 (Item 8)",
+        "TSLA-2025-8-008 (Item 8)"
+      ]
+    },
+    {
+      "id": "F15",
+      "type": "fact",
+      "question": "How many employees did Snowflake have at the end of fiscal 2026?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "SNOW 2026 Item 1"
+      ],
+      "retrieved": [
+        "SNOW-2026-1A-028 (Item 1A)",
+        "SNOW-2026-7-039 (Item 7)",
+        "SNOW-2026-1-028 (Item 1)",
+        "SNOW-2026-7-038 (Item 7)",
+        "SNOW-2026-7-034 (Item 7)",
+        "SNOW-2026-7-032 (Item 7)",
+        "SNOW-2026-8-104 (Item 8)",
+        "SNOW-2026-1A-029 (Item 1A)"
+      ]
+    },
+    {
+      "id": "F16",
+      "type": "fact",
+      "question": "How many employees did Rivian have at the end of 2025?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "RIVN 2025 Item 1"
+      ],
+      "retrieved": [
+        "RIVN-2025-7-003 (Item 7)",
+        "RIVN-2025-8-019 (Item 8)",
+        "RIVN-2025-1A-091 (Item 1A)",
+        "RIVN-2025-1-023 (Item 1)",
+        "RIVN-2025-1A-074 (Item 1A)",
+        "RIVN-2025-8-077 (Item 8)",
+        "RIVN-2025-1A-063 (Item 1A)",
+        "RIVN-2025-1-008 (Item 1)"
+      ]
+    },
+    {
+      "id": "F17",
+      "type": "fact",
+      "question": "Who is Ford's CEO?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "F 2025 Item 4A"
+      ],
+      "retrieved": [
+        "F-2025-4A-002 (Item 4A)",
+        "F-2025-4A-001 (Item 4A)",
+        "F-2024-4A-001 (Item 4A)",
+        "F-2024-15-014 (Item 15)",
+        "F-2024-1-040 (Item 1)",
+        "F-2025-1-039 (Item 1)",
+        "F-2024-4A-002 (Item 4A)",
+        "F-2024-9A-001 (Item 9A)"
+      ]
+    },
+    {
+      "id": "F18",
+      "type": "fact",
+      "question": "Who is AMD's CEO?",
+      "hit": false,
+      "hit_year": false,
+      "hit_all": false,
+      "quote_found": false,
+      "expected": [
+        "AMD 2025 Signature page"
+      ],
+      "retrieved": [
+        "AMD-2024-15-014 (Item 15)",
+        "AMD-2025-15-015 (Item 15)",
+        "AMD-2024-1-004 (Item 1)",
+        "AMD-2024-9A-001 (Item 9A)",
+        "AMD-2025-1-043 (Item 1)",
+        "AMD-2025-9A-001 (Item 9A)",
+        "AMD-2025-1-007 (Item 1)",
+        "AMD-2024-11-001 (Item 11)"
+      ]
+    },
+    {
+      "id": "F19",
+      "type": "fact",
+      "question": "Who is Apple's CEO?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "AAPL 2025 Signature page"
+      ],
+      "retrieved": [
+        "AAPL-2025-SIGNATURES-001 (Signature page)",
+        "AAPL-2024-SIGNATURES-001 (Signature page)",
+        "AAPL-2025-SIGNATURES-002 (Signature page)",
+        "AAPL-2024-15-010 (Item 15)",
+        "AAPL-2024-SIGNATURES-002 (Signature page)",
+        "AAPL-2025-15-009 (Item 15)",
+        "AAPL-2025-9B-001 (Item 9B)",
+        "AAPL-2024-15-009 (Item 15)"
+      ]
+    },
+    {
+      "id": "F20",
+      "type": "fact",
+      "question": "Who is NVIDIA's CEO?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "NVDA 2026 Item 1"
+      ],
+      "retrieved": [
+        "NVDA-2026-1-027 (Item 1)",
+        "NVDA-2024-1-028 (Item 1)",
+        "NVDA-2025-1-031 (Item 1)",
+        "NVDA-2025-9A-001 (Item 9A)",
+        "NVDA-2026-7-001 (Item 7)",
+        "NVDA-2026-9A-001 (Item 9A)",
+        "NVDA-2024-9A-001 (Item 9A)",
+        "NVDA-2025-1-033 (Item 1)"
+      ]
+    },
+    {
+      "id": "F21",
+      "type": "fact",
+      "question": "Who replaced Frank Slootman as Snowflake's CEO, and when?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "SNOW 2026 Item 1A"
+      ],
+      "retrieved": [
+        "SNOW-2026-SIGNATURES-003 (Signature page)",
+        "SNOW-2025-SIGNATURES-003 (Signature page)",
+        "SNOW-2024-SIGNATURES-003 (Signature page)",
+        "SNOW-2025-1A-026 (Item 1A)",
+        "SNOW-2024-8-115 (Item 8)",
+        "SNOW-2026-1A-028 (Item 1A)",
+        "SNOW-2025-SIGNATURES-004 (Signature page)",
+        "SNOW-2024-1A-020 (Item 1A)"
+      ]
+    },
+    {
+      "id": "F22",
+      "type": "fact",
+      "question": "Has Tesla ever paid a cash dividend?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "TSLA 2025 Item 5"
+      ],
+      "retrieved": [
+        "TSLA-2025-5-002 (Item 5)",
+        "TSLA-2024-5-002 (Item 5)",
+        "TSLA-2025-7-035 (Item 7)",
+        "TSLA-2025-5-003 (Item 5)",
+        "TSLA-2024-7-033 (Item 7)",
+        "TSLA-2024-5-003 (Item 5)",
+        "TSLA-2025-7-034 (Item 7)",
+        "TSLA-2024-8-018 (Item 8)"
+      ]
+    },
+    {
+      "id": "F23",
+      "type": "fact",
+      "question": "What were AWS net sales in 2025?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "AMZN 2025 Item 7",
+        "AMZN 2025 Item 7"
+      ],
+      "retrieved": [
+        "AMZN-2025-7-015 (Item 7)",
+        "AMZN-2025-7-016 (Item 7)",
+        "AMZN-2025-8-093 (Item 8)",
+        "AMZN-2025-8-094 (Item 8)",
+        "AMZN-2025-8-096 (Item 8)",
+        "AMZN-2025-8-095 (Item 8)",
+        "AMZN-2025-7-010 (Item 7)",
+        "AMZN-2025-7A-003 (Item 7A)"
+      ]
+    },
+    {
+      "id": "F24",
+      "type": "fact",
+      "question": "How much had Ford recognized as a receivable for tariff refunds at the end of 2025?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "F 2025 Item 7"
+      ],
+      "retrieved": [
+        "F-2025-8-045 (Item 8)",
+        "F-2025-7-001 (Item 7)",
+        "F-2025-8-066 (Item 8)",
+        "F-2025-1A-023 (Item 1A)",
+        "F-2025-8-063 (Item 8)",
+        "F-2025-8-069 (Item 8)",
+        "F-2025-8-088 (Item 8)",
+        "F-2025-8-052 (Item 8)"
+      ]
+    },
+    {
+      "id": "F25",
+      "type": "fact",
+      "question": "How many employees did Apple have at the end of fiscal 2025?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "AAPL 2025 Item 1"
+      ],
+      "retrieved": [
+        "AAPL-2025-8-040 (Item 8)",
+        "AAPL-2025-1-012 (Item 1)",
+        "AAPL-2025-8-048 (Item 8)",
+        "AAPL-2025-1A-019 (Item 1A)",
+        "AAPL-2025-7-011 (Item 7)",
+        "AAPL-2025-1A-017 (Item 1A)",
+        "AAPL-2025-7-003 (Item 7)",
+        "AAPL-2025-15-008 (Item 15)"
+      ]
+    },
+    {
+      "id": "S01",
+      "type": "summary",
+      "question": "What export control risks did NVIDIA describe in its fiscal 2026 10-K?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "NVDA 2026 Item 1A",
+        "NVDA 2026 Item 1A"
+      ],
+      "retrieved": [
+        "NVDA-2026-1A-045 (Item 1A)",
+        "NVDA-2026-1A-039 (Item 1A)",
+        "NVDA-2026-1-025 (Item 1)",
+        "NVDA-2026-1A-044 (Item 1A)",
+        "NVDA-2026-1A-038 (Item 1A)",
+        "NVDA-2026-1A-046 (Item 1A)",
+        "NVDA-2026-1A-047 (Item 1A)",
+        "NVDA-2026-1A-042 (Item 1A)"
+      ]
+    },
+    {
+      "id": "S02",
+      "type": "summary",
+      "question": "How does Snowflake oversee cybersecurity risk?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "SNOW 2026 Item 1C",
+        "SNOW 2026 Item 1C"
+      ],
+      "retrieved": [
+        "SNOW-2025-1C-004 (Item 1C)",
+        "SNOW-2024-1C-002 (Item 1C)",
+        "SNOW-2025-1C-002 (Item 1C)",
+        "SNOW-2024-1C-004 (Item 1C)",
+        "SNOW-2026-1C-004 (Item 1C)",
+        "SNOW-2024-1C-001 (Item 1C)",
+        "SNOW-2026-1C-002 (Item 1C)",
+        "SNOW-2026-1C-001 (Item 1C)"
+      ]
+    },
+    {
+      "id": "S03",
+      "type": "summary",
+      "question": "What is Rivian's joint venture with Volkswagen?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "RIVN 2025 Item 8",
+        "RIVN 2025 Item 7"
+      ],
+      "retrieved": [
+        "RIVN-2024-8-021 (Item 8)",
+        "RIVN-2024-8-089 (Item 8)",
+        "RIVN-2025-8-102 (Item 8)",
+        "RIVN-2025-8-021 (Item 8)",
+        "RIVN-2025-7-027 (Item 7)",
+        "RIVN-2024-8-090 (Item 8)",
+        "RIVN-2025-8-103 (Item 8)",
+        "RIVN-2025-1A-016 (Item 1A)"
+      ]
+    },
+    {
+      "id": "S04",
+      "type": "summary",
+      "question": "What did Ford say about the electric vehicle market in its 2025 10-K?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "F 2025 Item 7"
+      ],
+      "retrieved": [
+        "F-2025-7-003 (Item 7)",
+        "F-2025-8-104 (Item 8)",
+        "F-2025-1-013 (Item 1)",
+        "F-2025-1-001 (Item 1)",
+        "F-2025-1A-026 (Item 1A)",
+        "F-2025-1A-041 (Item 1A)",
+        "F-2025-8-089 (Item 8)",
+        "F-2025-8-183 (Item 8)"
+      ]
+    },
+    {
+      "id": "S05",
+      "type": "summary",
+      "question": "Where is Apple's manufacturing concentrated, and why is that a risk?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": false,
+      "expected": [
+        "AAPL 2025 Item 1A"
+      ],
+      "retrieved": [
+        "AAPL-2024-1A-004 (Item 1A)",
+        "AAPL-2025-1A-011 (Item 1A)",
+        "AAPL-2024-1A-010 (Item 1A)",
+        "AAPL-2025-1A-005 (Item 1A)",
+        "AAPL-2024-8-043 (Item 8)",
+        "AAPL-2025-1A-010 (Item 1A)",
+        "AAPL-2024-1A-005 (Item 1A)",
+        "AAPL-2024-1A-008 (Item 1A)"
+      ]
+    },
+    {
+      "id": "S06",
+      "type": "summary",
+      "question": "According to its 2025 risk factors, what does Tesla's future business depend on?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "TSLA 2025 Item 1A"
+      ],
+      "retrieved": [
+        "TSLA-2025-1A-001 (Item 1A)",
+        "TSLA-2025-1A-018 (Item 1A)",
+        "TSLA-2025-1A-002 (Item 1A)",
+        "TSLA-2025-1A-008 (Item 1A)",
+        "TSLA-2025-1A-026 (Item 1A)",
+        "TSLA-2025-1A-038 (Item 1A)",
+        "TSLA-2025-1A-017 (Item 1A)",
+        "TSLA-2025-1A-019 (Item 1A)"
+      ]
+    },
+    {
+      "id": "S07",
+      "type": "summary",
+      "question": "What caused supply chain disruptions for Ford in 2025?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "F 2025 Item 7"
+      ],
+      "retrieved": [
+        "F-2025-1A-007 (Item 1A)",
+        "F-2025-7-002 (Item 7)",
+        "F-2025-1A-024 (Item 1A)",
+        "F-2025-1A-008 (Item 1A)",
+        "F-2025-1A-009 (Item 1A)",
+        "F-2025-7-001 (Item 7)",
+        "F-2025-1A-023 (Item 1A)",
+        "F-2025-1A-022 (Item 1A)"
+      ]
+    },
+    {
+      "id": "S08",
+      "type": "summary",
+      "question": "What were the highlights of Microsoft's fiscal 2026 compared with fiscal 2025?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "MSFT 2026 Item 7",
+        "MSFT 2026 Item 7"
+      ],
+      "retrieved": [
+        "MSFT-2026-7-002 (Item 7)",
+        "MSFT-2026-7-020 (Item 7)",
+        "MSFT-2026-7-019 (Item 7)",
+        "MSFT-2026-8-070 (Item 8)",
+        "MSFT-2025-7-002 (Item 7)",
+        "MSFT-2026-8-069 (Item 8)",
+        "MSFT-2025-7-018 (Item 7)",
+        "MSFT-2025-7-011 (Item 7)"
+      ]
+    },
+    {
+      "id": "C01",
+      "type": "comparison",
+      "question": "How did Ford and GM describe the impact of tariffs in 2025?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "F 2025 Item 7",
+        "GM 2025 Item 7"
+      ],
+      "retrieved": [
+        "F-2025-7-001 (Item 7)",
+        "GM-2025-7-002 (Item 7)",
+        "GM-2025-1A-013 (Item 1A)",
+        "GM-2025-1A-014 (Item 1A)",
+        "F-2025-7-002 (Item 7)",
+        "F-2025-1A-023 (Item 1A)",
+        "F-2025-1A-022 (Item 1A)",
+        "GM-2025-7-005 (Item 7)"
+      ]
+    },
+    {
+      "id": "C02",
+      "type": "comparison",
+      "question": "Which has more employees, NVIDIA or AMD?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "NVDA 2026 Item 1",
+        "AMD 2025 Item 1"
+      ],
+      "retrieved": [
+        "AMD-2025-1-036 (Item 1)",
+        "AMD-2025-1-039 (Item 1)",
+        "NVDA-2026-1-026 (Item 1)",
+        "NVDA-2026-1-005 (Item 1)",
+        "AMD-2025-1-004 (Item 1)",
+        "AMD-2025-1-038 (Item 1)",
+        "NVDA-2026-7-001 (Item 7)",
+        "NVDA-2026-1A-021 (Item 1A)"
+      ]
+    },
+    {
+      "id": "C03",
+      "type": "comparison",
+      "question": "Which of Ford, GM and Tesla had the most employees at the end of 2025?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "F 2025 Item 1",
+        "GM 2025 Item 1",
+        "TSLA 2025 Item 1"
+      ],
+      "retrieved": [
+        "TSLA-2025-1-032 (Item 1)",
+        "TSLA-2025-7-028 (Item 7)",
+        "F-2025-1-041 (Item 1)",
+        "GM-2025-1-018 (Item 1)",
+        "GM-2025-1-016 (Item 1)",
+        "TSLA-2025-1-033 (Item 1)",
+        "GM-2025-8-065 (Item 8)",
+        "F-2025-8-165 (Item 8)"
+      ]
+    },
+    {
+      "id": "C04",
+      "type": "comparison",
+      "question": "Who are the CEOs of Ford and GM?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "F 2025 Item 4A",
+        "GM 2025 Item 1"
+      ],
+      "retrieved": [
+        "F-2025-4A-002 (Item 4A)",
+        "F-2025-1-039 (Item 1)",
+        "F-2025-15-015 (Item 15)",
+        "F-2025-4A-001 (Item 4A)",
+        "GM-2025-1-019 (Item 1)",
+        "GM-2025-9A-001 (Item 9A)",
+        "GM-2025-1-001 (Item 1)",
+        "GM-2025-SIGNATURES-002 (Signature page)"
+      ]
+    },
+    {
+      "id": "C05",
+      "type": "comparison",
+      "question": "Which had higher revenue in its latest fiscal year, Apple or NVIDIA?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "AAPL 2025 Item 7",
+        "NVDA 2026 Item 7"
+      ],
+      "retrieved": [
+        "NVDA-2026-7-005 (Item 7)",
+        "AAPL-2025-8-016 (Item 8)",
+        "NVDA-2026-15-087 (Item 15)",
+        "AAPL-2025-7-008 (Item 7)",
+        "NVDA-2026-7-014 (Item 7)",
+        "NVDA-2026-1-009 (Item 1)",
+        "AAPL-2025-7-007 (Item 7)",
+        "AAPL-2025-7-012 (Item 7)"
+      ]
+    },
+    {
+      "id": "C06",
+      "type": "comparison",
+      "question": "How did AMD's and Tesla's revenue change in 2025?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "AMD 2025 Item 7",
+        "TSLA 2025 Item 7"
+      ],
+      "retrieved": [
+        "TSLA-2025-8-026 (Item 8)",
+        "TSLA-2025-7-019 (Item 7)",
+        "TSLA-2025-7-026 (Item 7)",
+        "TSLA-2025-7-022 (Item 7)",
+        "AMD-2025-7-016 (Item 7)",
+        "AMD-2025-7-003 (Item 7)",
+        "AMD-2025-1-002 (Item 1)",
+        "AMD-2025-8-033 (Item 8)"
+      ]
+    },
+    {
+      "id": "C07",
+      "type": "comparison",
+      "question": "Which has more employees, Microsoft or Alphabet?",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "MSFT 2025 Item 1",
+        "GOOGL 2025 Item 1"
+      ],
+      "retrieved": [
+        "MSFT-2026-7-002 (Item 7)",
+        "GOOGL-2025-1-012 (Item 1)",
+        "MSFT-2026-1-023 (Item 1)",
+        "MSFT-2026-1-003 (Item 1)",
+        "GOOGL-2025-8-117 (Item 8)",
+        "GOOGL-2025-1A-040 (Item 1A)",
+        "MSFT-2026-1-018 (Item 1)",
+        "GOOGL-2025-7-017 (Item 7)"
+      ]
+    },
+    {
+      "id": "C08",
+      "type": "comparison",
+      "question": "Compare the 2025 growth of AWS and fiscal 2025 growth of Microsoft Cloud.",
+      "hit": true,
+      "hit_year": true,
+      "hit_all": true,
+      "quote_found": true,
+      "expected": [
+        "AMZN 2025 Item 7",
+        "AMZN 2025 Item 7",
+        "MSFT 2025 Item 7"
+      ],
+      "retrieved": [
+        "MSFT-2025-7-011 (Item 7)",
+        "MSFT-2025-7-014 (Item 7)",
+        "MSFT-2025-7-002 (Item 7)",
+        "AMZN-2025-7-024 (Item 7)",
+        "AMZN-2025-7-023 (Item 7)",
+        "AMZN-2025-7-016 (Item 7)",
+        "AMZN-2025-7-010 (Item 7)",
+        "MSFT-2025-7-007 (Item 7)"
+      ]
+    }
+  ],
+  "no_answer": [
+    {
+      "id": "N01",
+      "retrieved": []
+    },
+    {
+      "id": "N02",
+      "retrieved": [
+        "SNOW-2026-8-135",
+        "SNOW-2026-1A-069",
+        "SNOW-2024-7-031",
+        "SNOW-2025-1A-067",
+        "SNOW-2024-5-004",
+        "SNOW-2024-1A-056",
+        "SNOW-2024-8-012",
+        "SNOW-2024-1A-055"
+      ]
+    },
+    {
+      "id": "N03",
+      "retrieved": [
+        "TSLA-2024-1-033",
+        "TSLA-2025-15-005",
+        "TSLA-2024-1-031",
+        "TSLA-2024-7-002",
+        "TSLA-2025-1-001",
+        "TSLA-2024-8-084",
+        "TSLA-2024-1-001",
+        "TSLA-2024-1-037"
+      ]
+    },
+    {
+      "id": "N04",
+      "retrieved": [
+        "MSFT-2026-8-027",
+        "MSFT-2025-7-003",
+        "MSFT-2026-7-003",
+        "MSFT-2024-1-006",
+        "AMZN-2024-1-012",
+        "AMD-2025-1-007",
+        "AMZN-2025-1-012",
+        "AMZN-2025-1-010"
+      ]
+    },
+    {
+      "id": "N05",
+      "retrieved": []
+    },
+    {
+      "id": "N06",
+      "retrieved": [
+        "MSFT-2024-7-045",
+        "MSFT-2026-7-045",
+        "MSFT-2025-7-043",
+        "MSFT-2026-1-029",
+        "MSFT-2025-1-036",
+        "MSFT-2024-1-047",
+        "MSFT-2024-SIGNATURES-001",
+        "MSFT-2025-SIGNATURES-001"
+      ]
+    }
+  ]
+}

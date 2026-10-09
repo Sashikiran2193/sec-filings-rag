@@ -38,7 +38,7 @@
   },
   "citations": {
     "answers_checked": 38,
-    "numbers_checked": 179,
+    "numbers_checked": 172,
     "numbers_supported_pct": 100.0,
     "answers_with_uncited_figures": 8,
     "answers_with_uncited_figures_ids": [
@@ -56,6 +56,7 @@
     "no_answer_questions": 6,
     "correctly_declined": 6,
     "correct_refusal_rate": 100.0,
+    "declined_in_exact_form": 6,
     "false_refusals": 3,
     "false_refusal_rate": 7.3,
     "false_refusal_ids": [
