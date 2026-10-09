@@ -107,6 +107,7 @@ ticker in `tickers.json` (under `tickers`, plus `names` and `aliases`) and run
 | 7. Ask | `ask.py` | the command-line entry point |
 | Evaluate retrieval | `eval_retrieval.py [--mode dense]` | `eval/` |
 | Test set | `eval/questions.jsonl`, checked by `python eval/validate_questions.py` | 47 questions with verified answers and source quotes |
+| Measure retrieval | `python eval/measure_retrieval.py [--mode dense] [--k 8]` | hit rate overall and by question type in `eval/results/`; baseline 95.1% (`eval/results/BASELINE.md`) |
 
 `ingest.py` runs steps 1-4 for each filing. Answers use Claude
 (`claude-opus-5-5`); the model sees only the retrieved chunks, must cite one
